@@ -102,75 +102,7 @@ CREATE TABLE "Project_log" (
   "created_at" dateTime
 );
 
-CREATE TABLE "Accounts" (
-  "acc_id" varchar,
-  "acc_number" varchar,
-  "acc_provider" varchar,
-  "acc_status" status,
-  "acc_type" account_type,
-  "acc_balance" BigInteger,
-  "created_at" dateTime,
-  "updated_at" dateTime,
-  "user_id" varchar
-);
 
-CREATE TABLE "credit_cards" (
-  "id" varchar,
-  "card_number" varchar,
-  "card_provider" varchar,
-  "card_limit" varchar,
-  "card_cash_limit" varchar,
-  "user_id" varchar,
-  "card_status" status,
-  "card_expiration" date,
-  "created_at" dateTime,
-  "updated_at" dateTime
-);
-
-CREATE TABLE "Loans" (
-  "id" varchar,
-  "loan_account_num" varchar,
-  "amount" BigInteger,
-  "term" dateTime,
-  "interest" Integer,
-  "current_principle_remaining" BigInteger,
-  "current_interest_remaining" BigInteger,
-  "monthly_emi" BigInteger,
-  "account_id" varchar,
-  "loan_status" status,
-  "created_at" dateTime,
-  "updated_at" dateTime
-);
-
-CREATE TABLE "credit_transactions" (
-  "id" varchar,
-  "transaction_id" varchar,
-  "transaction_date" dateTime,
-  "amount" BigInteger,
-  "type" credit_type,
-  "details" text,
-  "account_id" varchar,
-  "is_loan" boolean,
-  "loan_id" varchar,
-  "card_id" varchar,
-  "created_at" dateTime,
-  "updated_at" dateTime
-);
-
-CREATE TABLE "debit_transactions" (
-  "id" varchar,
-  "transaction_id" varchar,
-  "transaction_date" dateTime,
-  "amount" BigInteger,
-  "type" debit_type,
-  "details" text,
-  "account_id" varchar,
-  "is_loan" boolean,
-  "loan_id" varchar,
-  "card_id" varchar,
-  "created_at" dateTime,
-  "updated_at" dateTime
-);
 
 ALTER TABLE "Accounts" ADD FOREIGN KEY ("user_id") REFERENCES "Users" ("id");
 
@@ -183,17 +115,3 @@ ALTER TABLE "Projects" ADD FOREIGN KEY ("user_id") REFERENCES "Users" ("id");
 ALTER TABLE "Project_log" ADD FOREIGN KEY ("project_id") REFERENCES "Projects" ("id");
 
 ALTER TABLE "Tasks" ADD FOREIGN KEY ("project_id") REFERENCES "Projects" ("id");
-
-ALTER TABLE "credit_transactions" ADD FOREIGN KEY ("account_id") REFERENCES "Accounts" ("acc_id");
-
-ALTER TABLE "credit_transactions" ADD FOREIGN KEY ("card_id") REFERENCES "credit_cards" ("id");
-
-ALTER TABLE "debit_transactions" ADD FOREIGN KEY ("account_id") REFERENCES "Accounts" ("acc_id");
-
-ALTER TABLE "debit_transactions" ADD FOREIGN KEY ("card_id") REFERENCES "credit_cards" ("id");
-
-ALTER TABLE "Loans" ADD FOREIGN KEY ("account_id") REFERENCES "Accounts" ("acc_id");
-
-ALTER TABLE "credit_transactions" ADD FOREIGN KEY ("loan_id") REFERENCES "Loans" ("id");
-
-ALTER TABLE "debit_transactions" ADD FOREIGN KEY ("loan_id") REFERENCES "Loans" ("id");
