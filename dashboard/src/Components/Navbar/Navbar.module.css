@@ -1,0 +1,23 @@
+.navbar {
+    width: 45%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.navbarContainer {
+    padding-left: 0.6rem;
+}
+.menuButtonContainer {
+    height: 3rem;
+    color: white;
+}
+
+.menuButton {
+    color:white
+}
+
+.zIndexTop {
+    z-index: 1;
+}
+
