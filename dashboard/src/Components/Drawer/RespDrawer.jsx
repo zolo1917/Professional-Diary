@@ -16,7 +16,7 @@ const routesObject = [
   {
     label: "Dashboard",
     icon : <InboxIcon />,
-    route: "/dasboard"
+    route: "/dashboard"
   },{
     label: "Projects",
     icon : <InboxIcon />,
@@ -26,6 +26,11 @@ const routesObject = [
     label: "Accounts",
     icon : <InboxIcon />,
     route: "/accounts"
+  },
+  {
+    label: "Notes",
+    icon: <InboxIcon/>,
+    route: 'notes'
   },
   {
     label: "Tasks",
@@ -76,7 +81,7 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: 250,
+            width: 200,
             marginTop: "3.6em",
           },
         }}
@@ -92,7 +97,7 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: 250,
+            width: 200,
             marginTop: "4em",
           },
         }}
