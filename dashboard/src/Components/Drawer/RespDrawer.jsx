@@ -9,63 +9,64 @@ import {
   ListItemText,
 } from "@mui/material";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
+import TextSnippetIcon from "@mui/icons-material/TextSnippet";
+import ChecklistIcon from "@mui/icons-material/Checklist";
 import { useState } from "react";
 
 const routesObject = [
   {
     label: "Dashboard",
-    icon : <InboxIcon />,
-    route: "/dashboard"
-  },{
+    icon: <DashboardIcon />,
+    route: "/dashboard",
+  },
+  {
     label: "Projects",
-    icon : <InboxIcon />,
-    route: "/projects"
+    icon: <DisplaySettingsIcon />,
+    route: "/projects",
   },
   {
     label: "Accounts",
-    icon : <InboxIcon />,
-    route: "/accounts"
+    icon: <AccountBalanceWalletIcon />,
+    route: "/accounts",
   },
   {
     label: "Notes",
-    icon: <InboxIcon/>,
-    route: 'notes'
+    icon: <TextSnippetIcon />,
+    route: "notes",
   },
   {
     label: "Tasks",
-    icon : <InboxIcon />,
-    route: "/tasks"
-  }  
-]
+    icon: <ChecklistIcon />,
+    route: "/tasks",
+  },
+];
 
 function ResponsiveDrawer({ drawerState, routeCallback }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(drawerState);
 
   const toggleOpenClose = () => {
     setIsOpen(!isOpen);
   };
-  const handleRoute = (route) =>{
-    routeCallback(route)
-  }
+  const handleRoute = (route) => {
+    routeCallback(route);
+  };
   const handleTransition = () => {};
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
   const drawer = (
-    <div>
+    <Box>
       <List>
         {routesObject.map((obj, index) => (
           <ListItem key={obj.label} disablePadding>
-            <ListItemButton onClick={()=>handleRoute(obj.route)}>
-              <ListItemIcon>
-                {obj.icon}
-              </ListItemIcon>
+            <ListItemButton onClick={() => handleRoute(obj.route)}>
+              <ListItemIcon>{obj.icon}</ListItemIcon>
               <ListItemText primary={obj.label} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
-    </div>
+    </Box>
   );
 
   return (
@@ -74,14 +75,12 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
       <Drawer
         variant="temporary"
         open={drawerState}
-        hideBackdrop={true}
         sx={{
-          display: {xs: "block", sm: "none"},
-          position:"inherit",
+          display: { xs: "block", sm: "none" },
+          position: "inherit",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: 200,
             marginTop: "3.6em",
           },
         }}
@@ -92,8 +91,8 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
         container={document.getElementById("drawerContainer")}
         variant="permanent"
         sx={{
-          display: {xs: "none", sm: "inherit"},
-          position:"inherit",
+          display: { xs: "none", sm: "inherit" },
+          position: "inherit",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",

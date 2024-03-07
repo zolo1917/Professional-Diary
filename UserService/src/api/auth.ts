@@ -33,6 +33,11 @@ router.post("/login", async (req: Request, res: Response) => {
         return;
       }
       let key: string = secretKey();
+      await User.updateOne(
+        { id: user.id },
+        { $set: { last_logged_in: new Date(), updated_at: new Date() } },
+        { upsert: true }
+      );
       const accessToken = jwt.sign({ user: user.id }, key, {
         expiresIn: "15m",
       });
@@ -44,6 +49,7 @@ router.post("/login", async (req: Request, res: Response) => {
         { expiresIn: "7d" }
       );
       res.status(200).json({
+        id: user.id,
         accessToken: accessToken,
         refreshToken: refreshToken,
         message: "Login successful",
