@@ -8,6 +8,7 @@ function Notes({}) {
       direction="row"
       divider={<Divider orientation="vertical" flexItem />}
       spacing={2}
+      sx={{ height: "100vh" }}
     >
       <NotesList />
       <CreateEditNote />

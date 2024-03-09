@@ -1,5 +1,6 @@
 import {
   Box,
+  Container,
   CssBaseline,
   Drawer,
   List,
@@ -91,12 +92,11 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
         container={document.getElementById("drawerContainer")}
         variant="permanent"
         sx={{
-          display: { xs: "none", sm: "inherit" },
+          display: { xs: "none", sm: "block" },
           position: "inherit",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: 200,
             marginTop: "4em",
           },
         }}

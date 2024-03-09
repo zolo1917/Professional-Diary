@@ -14,9 +14,9 @@ function Navbar({ onCallBack }) {
     setLoginOpen(false);
   };
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: "primary" }}>
       <Toolbar>
-        <div className={classes.menuButtonContainer}>
+        <Box sx={{ display: { xs: "block", sm: "none" } }}>
           <IconButton
             color="inherit"
             size="large"
@@ -26,16 +26,16 @@ function Navbar({ onCallBack }) {
           >
             <MenuIcon />
           </IconButton>
-        </div>
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{ flexGrow: 1, marginLeft: { xs: 0, sm: 5 } }}
-        >
+        </Box>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Professional Diary
         </Typography>
         <div>
-          <Button color="inherit" onClick={handleLoginClick}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleLoginClick}
+          >
             Login
           </Button>
         </div>

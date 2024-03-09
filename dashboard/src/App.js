@@ -15,7 +15,7 @@ import Projects from "./Components/Projects/Projects";
 import Accounts from "./Components/Accounts/Accounts";
 import Tasks from "./Components/Tasks/Tasks";
 import Notes from "./Components/Notes/Notes";
-import { Box, Stack } from "@mui/material";
+import { Box, Container, Divider, Stack } from "@mui/material";
 function App() {
   const [drawerState, setDrawerState] = useState(true);
   const navigate = useNavigate();
@@ -52,18 +52,15 @@ function App() {
   };
   return (
     <Box>
-      <Box>
-        <Navbar onCallBack={handleDrawerToggle}></Navbar>
-      </Box>
-      <Stack direction="row" spacing={2}>
-        <Box>
+      <Navbar onCallBack={handleDrawerToggle}></Navbar>
+      <Stack direction="row" justifyContent={"start"}>
+        <Box sx={{ width: { xs: "0", sm: "10.5rem" } }}>
           <ResponsiveDrawer
             drawerState={drawerState}
             routeCallback={handleRoute}
           ></ResponsiveDrawer>
         </Box>
-        <Box>
-          {/* <RouterProvider router={router}></RouterProvider> */}
+        <Box sx={{ width: "80%", margin: "1%" }}>
           <Routes>
             <Route path="/dashboard" element={<Homepage />}></Route>
             <Route path="/projects" element={<Projects />}></Route>
