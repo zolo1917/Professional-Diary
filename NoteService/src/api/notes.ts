@@ -8,10 +8,25 @@ router.get("/notes", async (req: Request, res: Response) => {
     console.log(notes);
     res.status(200).json(notes);
     res.send();
+    return;
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal Server Error" });
     res.send();
+    return;
+  }
+});
+
+router.get("/notes/:id", async (req: Request, res: Response) => {
+  try {
+    const noteId = req.params.id;
+    const note = await Note.findById(noteId);
+    res.status(200).json(note);
+    res.send();
+    return;
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "internal Server error" });
   }
 });
 
@@ -52,3 +67,5 @@ router.delete("/notes/:id", async (req: Request, res: Response) => {
     res.send();
   }
 });
+
+export { router as notesRouter };
