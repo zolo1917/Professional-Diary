@@ -2,6 +2,13 @@ import { Box, Button, List, ListItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import NotesIcon from "@mui/icons-material/Notes";
 
+const SampleList = [
+  {
+    title: "Test Title 1"
+    
+  }
+]
+
 const NotesList = () => {
   const [notes, setNotes] = useState([]);
   const [isNewNote, setIsNewNote] = useState(false);

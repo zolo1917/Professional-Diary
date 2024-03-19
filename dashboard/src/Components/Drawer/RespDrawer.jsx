@@ -71,7 +71,7 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
   );
 
   return (
-    <Box id="drawerContainer">
+    <Box id="drawerContainer" sx={{ height: "100%" }}>
       <CssBaseline />
       <Drawer
         variant="temporary"
@@ -93,7 +93,7 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
         variant="permanent"
         sx={{
           display: { xs: "none", sm: "block" },
-          position: "inherit",
+          position: "static",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
