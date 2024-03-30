@@ -1,11 +1,12 @@
 body {
   margin-top: 5rem;
+  padding: 0;
 }
 
 .mainPage {
   margin-top: 5rem;
 }
 
-.leftMargin{
+.leftMargin {
   margin-left: 16rem;
 }

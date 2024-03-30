@@ -7,8 +7,7 @@ router.get("/notes", async (req: Request, res: Response) => {
     const notes = await Note.find();
     console.log(notes);
     res.status(200).json(notes);
-    res.send();
-    return;
+    return res;
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal Server Error" });

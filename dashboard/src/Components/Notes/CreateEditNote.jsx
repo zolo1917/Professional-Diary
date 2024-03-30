@@ -7,27 +7,50 @@ import {
   TextField,
 } from "@mui/material";
 import classes from "./editNote.module.css";
-import { useState } from "react";
-import { Editor, EditorState } from "draft-js";
-import "draft-js/dist/Draft.css";
-import Quill from "quill";
+import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
+import { createNote, updateNote } from "../../Services/NotesService";
 
-const CreateEditNote = ({ handleSubmit, header, text, ...props }) => {
-  const [title, setTitle] = useState(header);
-  const [content, setContent] = useState(() => EditorState.createEmpty());
+const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
+  const [title, setTitle] = useState(note.title);
   const [editorState, setEditorState] = useState("");
   const clearFields = () => {
     setTitle("");
-    setContent("");
+    setEditorState("");
+  };
+  useEffect(() => {
+    setEditorState(note.text);
+    setTitle(note.title);
+  }, [note]);
+  const handleSubmitClick = (e) => {
+    e.preventDefault();
+    if (note._id) {
+      // update existing note
+      const obj = {
+        title: title,
+        text: editorState,
+        createdAt: note.createdAt,
+      };
+      updateNote(note._id, obj);
+    } else {
+      const obj = {
+        title: title,
+        text: editorState,
+      };
+      createNote(obj);
+    }
+    onSubmitHandler();
   };
   return (
     <Box flex={8} sx={{ height: "100%", width: "100%" }}>
       <form className={`${classes.fullLength} ${classes.leftSpace}`}>
         <FormControl variant="standard" sx={{ width: "95%" }}>
-          <InputLabel onChange={() => setContent}>Title</InputLabel>
-          <Input></Input>
+          <InputLabel>Title</InputLabel>
+          <Input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          ></Input>
         </FormControl>
         <FormControl
           variant="standard"
@@ -51,14 +74,15 @@ const CreateEditNote = ({ handleSubmit, header, text, ...props }) => {
         >
           <Button
             variant="outlined"
-            onClick={handleSubmit}
+            onClick={clearFields}
             sx={{ margin: "1.5rem" }}
           >
             Clear
           </Button>
           <Button
             variant="contained"
-            onClick={clearFields}
+            onClick={handleSubmitClick}
+            type="submit"
             sx={{ margin: "1.5rem" }}
           >
             Submit

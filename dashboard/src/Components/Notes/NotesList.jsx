@@ -1,35 +1,30 @@
-import { Box, Button, List, ListItem } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  List,
+  ListItem,
+  ListItemText,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import NotesIcon from "@mui/icons-material/Notes";
+import { getNotes } from "../../Services/NotesService";
 
-const SampleList = [
-  {
-    title: "Test Title 1"
-    
-  }
-]
-
-const NotesList = () => {
-  const [notes, setNotes] = useState([]);
+const NotesList = ({ notes, handleNoteSelection }) => {
   const [isNewNote, setIsNewNote] = useState(false);
-  const fetchNotes = () => {
-    fetch("localhost:4300/getNotes").then(
-      (response) => {
-        console.log(response.json);
-        setNotes(response.json);
-      },
-      (response) => {
-        console.log(response.json);
-        setNotes([]);
-      }
-    );
-  };
+
   const createNewNote = () => {
     setIsNewNote(true);
+    handleNoteSelection({
+      title: "",
+      Content: "",
+      createdDate: new Date().toDateString(),
+    });
   };
-  useEffect(fetchNotes, []);
   return (
-    <Box flex={5}>
+    <Box flex={5} sx={{ width: "100%" }}>
       <Box
         sx={{
           width: "100%",
@@ -43,11 +38,41 @@ const NotesList = () => {
           New Note
         </Button>
       </Box>
-      <Box>
+      <Box sx={{ height: "83%", overflowY: "scroll" }}>
         <List sx={{ width: "100%" }}>
-          <ListItem>
-            <NotesIcon />
-          </ListItem>
+          {notes?.map((obj) => {
+            return (
+              <ListItem key={obj._id} sx={{ width: "100%" }}>
+                <Button
+                  onClick={() => {
+                    handleNoteSelection(obj);
+                  }}
+                  sx={{
+                    alignItems: "start",
+                    width: "100%",
+                  }}
+                >
+                  <NotesIcon />
+                  <ListItemText
+                    primary={obj.title}
+                    secondary={
+                      <>
+                        <Typography
+                          sx={{ display: "inline" }}
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          {obj.createdAt}
+                        </Typography>
+                      </>
+                    }
+                  ></ListItemText>
+                  <Divider variant="inset" />
+                </Button>
+              </ListItem>
+            );
+          })}
         </List>
       </Box>
     </Box>

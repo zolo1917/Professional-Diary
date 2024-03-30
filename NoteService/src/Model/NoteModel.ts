@@ -16,10 +16,6 @@ export interface INote {
 }
 
 const noteSchema = new mongoose.Schema<INote>({
-  id: {
-    type: String,
-    default: uuid.v4,
-  },
   title: {
     type: String,
     require: true,
@@ -41,4 +37,4 @@ const noteSchema = new mongoose.Schema<INote>({
   },
 });
 
-export const Note = model<INote>("User", noteSchema);
+export const Note = model<INote>("Note", noteSchema);
