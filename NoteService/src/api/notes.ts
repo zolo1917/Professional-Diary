@@ -5,14 +5,12 @@ const router = express.Router();
 router.get("/notes", async (req: Request, res: Response) => {
   try {
     const notes = await Note.find();
-    console.log(notes);
     res.status(200).json(notes);
     return res;
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal Server Error" });
-    res.send();
-    return;
+    return res;
   }
 });
 
@@ -22,7 +20,6 @@ router.get("/notes/:id", async (req: Request, res: Response) => {
     const note = await Note.findById(noteId);
     res.status(200).json(note);
     res.send();
-    return;
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "internal Server error" });

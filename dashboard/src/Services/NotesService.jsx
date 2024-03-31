@@ -34,3 +34,12 @@ export const updateNote = async (noteId, noteObject) => {
     body: JSON.stringify(noteObject),
   });
 };
+
+export const deleteNote = async (noteId) => {
+  const response = await fetch(noteUrl + `/${noteId}`, {
+    method: "delete",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+};

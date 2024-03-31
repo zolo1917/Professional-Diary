@@ -4,15 +4,18 @@ import {
   Divider,
   List,
   ListItem,
+  ListItemButton,
+  ListItemIcon,
   ListItemText,
   Paper,
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import NotesIcon from "@mui/icons-material/Notes";
-import { getNotes } from "../../Services/NotesService";
+import { deleteNote, getNotes } from "../../Services/NotesService";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const NotesList = ({ notes, handleNoteSelection }) => {
+const NotesList = ({ notes, handleNoteSelection, onDelete }) => {
   const [isNewNote, setIsNewNote] = useState(false);
 
   const createNewNote = () => {
@@ -23,6 +26,12 @@ const NotesList = ({ notes, handleNoteSelection }) => {
       createdDate: new Date().toDateString(),
     });
   };
+
+  const handleDeleteNote = (obj) => {
+    deleteNote(obj._id);
+    onDelete();
+  };
+
   return (
     <Box flex={5} sx={{ width: "100%" }}>
       <Box
@@ -38,7 +47,7 @@ const NotesList = ({ notes, handleNoteSelection }) => {
           New Note
         </Button>
       </Box>
-      <Box sx={{ height: "83%", overflowY: "scroll" }}>
+      <Box sx={{ height: "83%", overflowY: "auto" }}>
         <List sx={{ width: "100%" }}>
           {notes?.map((obj) => {
             return (
@@ -52,7 +61,9 @@ const NotesList = ({ notes, handleNoteSelection }) => {
                     width: "100%",
                   }}
                 >
-                  <NotesIcon />
+                  <ListItemIcon>
+                    <NotesIcon />
+                  </ListItemIcon>
                   <ListItemText
                     primary={obj.title}
                     secondary={
@@ -68,8 +79,15 @@ const NotesList = ({ notes, handleNoteSelection }) => {
                       </>
                     }
                   ></ListItemText>
-                  <Divider variant="inset" />
                 </Button>
+                <ListItemButton
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleDeleteNote(obj);
+                  }}
+                >
+                  <DeleteIcon></DeleteIcon>
+                </ListItemButton>
               </ListItem>
             );
           })}

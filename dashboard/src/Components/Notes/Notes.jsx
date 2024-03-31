@@ -11,10 +11,13 @@ function Notes() {
     text: "",
   });
   const [notes, setNotes] = useState([]);
+  const [isNoteSelected, setIsNoteSelected] = useState(false);
+  const [triggerUpdateList, setTriggerUpdateList] = useState(false);
   const handleNoteSelection = (obj) => {
     setIsNoteSelected(true);
     setSelectedNote(obj);
   };
+
   const fetchNotes = () => {
     fetch("http://localhost:4301/notes")
       .then(
@@ -30,8 +33,7 @@ function Notes() {
         setNotes(data);
       });
   };
-  useEffect(fetchNotes, [selectedNote]);
-  const [isNoteSelected, setIsNoteSelected] = useState(false);
+  useEffect(fetchNotes, [selectedNote, triggerUpdateList]);
 
   const updateList = () => {
     setSelectedNote({
@@ -39,6 +41,13 @@ function Notes() {
       text: "",
     });
     setIsNoteSelected(false);
+  };
+
+  const deleteNote = () => {
+    console.log(triggerUpdateList);
+    setTriggerUpdateList((previousState) => {
+      return !previousState;
+    });
   };
 
   let selectedPage = <NoNoteSelected></NoNoteSelected>;
@@ -57,7 +66,11 @@ function Notes() {
       spacing={2}
       sx={{ height: "100vh" }}
     >
-      <NotesList notes={notes} handleNoteSelection={handleNoteSelection} />
+      <NotesList
+        notes={notes}
+        handleNoteSelection={handleNoteSelection}
+        onDelete={deleteNote}
+      />
       {selectedPage}
     </Stack>
   );
