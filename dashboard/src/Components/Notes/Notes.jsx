@@ -22,7 +22,12 @@ function Notes() {
     fetch("http://localhost:4301/notes")
       .then(
         (response) => {
-          return response.json();
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            console.log(response.json());
+            setNotes([]);
+          }
         },
         (response) => {
           console.log(response);
@@ -30,7 +35,11 @@ function Notes() {
         }
       )
       .then((data) => {
-        setNotes(data);
+        if (data) {
+          setNotes(data);
+        } else {
+          setNotes([]);
+        }
       });
   };
   useEffect(fetchNotes, [selectedNote, triggerUpdateList]);

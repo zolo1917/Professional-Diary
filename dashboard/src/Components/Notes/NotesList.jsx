@@ -17,7 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const NotesList = ({ notes, handleNoteSelection, onDelete }) => {
   const [isNewNote, setIsNewNote] = useState(false);
-
+  console.log(notes);
   const createNewNote = () => {
     setIsNewNote(true);
     handleNoteSelection({
