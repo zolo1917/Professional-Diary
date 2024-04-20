@@ -5,66 +5,45 @@ import {
   FormControl,
   FormLabel,
   TextField,
+  Box,
 } from "@mui/material";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
 import { useState } from "react";
-import classes from "./dialogue.module.css";
-function SignupLogin({ open, onClose }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  function handleLogin() {
-    // handle the login logic here
-    handleClose();
-  }
-  function handleClose() {
-    onClose();
+import SignupForm from "./SignUp";
+import LoginForm from "./Login";
+function SignupLogin({ open, onClose, handleLoginCookie }) {
+  const [value, setValue] = useState(1);
+
+  function handleChange(event) {
+    setValue(event.target.tabIndex);
   }
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle> Login / Sign up</DialogTitle>
-      <FormControl className={classes.loginForm}>
-        <div className={classes.formInputDiv}>
-          <FormLabel className={classes.formInputLabel}>Email</FormLabel>
-          <TextField
-            type="text"
-            variant="filled"
-            className={classes.formInputField}
-            onChange={(event) => {
-              console.log(event);
-              setEmail(event.email);
-            }}
-          />
-        </div>
-        <div className={classes.formInputDiv}>
-          <FormLabel className={classes.formInputLabel}>Password</FormLabel>
-          <TextField
-            type="password"
-            variant="filled"
-            className={classes.formInputField}
-            onChange={(eventObj) => {
-              console.log(eventObj);
-              return setPassword();
-            }}
-          />
-        </div>
-        <div className={classes.formButtonContainer}>
-          <Button
-            variant="outlined"
-            size="large"
-            type="submit"
-            onClick={handleClose}
-          >
-            Cancle
-          </Button>
-          <Button
-            variant="contained"
-            size="large"
-            type="submit"
-            onClick={handleLogin}
-          >
-            Submit
-          </Button>
-        </div>
-      </FormControl>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
+          <Tab label="Login" tabIndex={0} />
+          <Tab label="Sign up" tabIndex={1} />
+        </Tabs>
+      </Box>
+      <Box sx={{ width: "30rem", height: "30rem" }}>
+        {value == 0 ? (
+          <LoginForm
+            onClose={onClose}
+            handleLoginCookie={handleLoginCookie}
+          ></LoginForm>
+        ) : (
+          <SignupForm
+            onClose={onClose}
+            handleLoginCookie={handleLoginCookie}
+          ></SignupForm>
+        )}
+      </Box>
     </Dialog>
   );
 }

@@ -1,7 +1,3 @@
-function Homepage (){
- return (<>
-    <p> this is the home page</p>
- </>)
+function Homepage() {
+  return <div>this is the homepage</div>;
 }
-
-export default Homepage;

@@ -1,11 +1,9 @@
 import AppBar from "@mui/material/AppBar";
-import classes from "./Navbar.module.css";
 import { Box, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import zIndex from "@mui/material/styles/zIndex";
 import SignupLogin from "../Dialog/RegisterDialogue";
 import { useState } from "react";
-function Navbar({ onCallBack }) {
+function Navbar({ onCallBack, handleLoginCookie }) {
   const [loginOpen, setLoginOpen] = useState(false);
   const handleLoginClick = () => {
     setLoginOpen(true);
@@ -39,7 +37,11 @@ function Navbar({ onCallBack }) {
             Login
           </Button>
         </div>
-        <SignupLogin open={loginOpen} onClose={handLoginClose} />
+        <SignupLogin
+          open={loginOpen}
+          onClose={handLoginClose}
+          handleLoginCookie={handleLoginCookie}
+        />
       </Toolbar>
     </AppBar>
   );
