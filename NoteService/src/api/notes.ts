@@ -6,12 +6,11 @@ router.get("/notes", async (req: Request, res: Response) => {
   try {
     const notes = await Note.find();
     res.status(200).json(notes);
-    return res;
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal Server Error" });
-    return res;
   }
+  return res;
 });
 
 router.get("/notes/:id", async (req: Request, res: Response) => {

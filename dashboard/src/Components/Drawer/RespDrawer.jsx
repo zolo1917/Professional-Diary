@@ -21,27 +21,27 @@ const routesObject = [
   {
     label: "Dashboard",
     icon: <DashboardIcon />,
-    route: "/dashboard",
+    route: "/app/dashboard",
   },
   {
     label: "Projects",
     icon: <DisplaySettingsIcon />,
-    route: "/projects",
+    route: "/app/projects",
   },
   {
     label: "Accounts",
     icon: <AccountBalanceWalletIcon />,
-    route: "/accounts",
+    route: "/app/accounts",
   },
   {
     label: "Notes",
     icon: <TextSnippetIcon />,
-    route: "notes",
+    route: "/app/notes",
   },
   {
     label: "Tasks",
     icon: <ChecklistIcon />,
-    route: "/tasks",
+    route: "/app/tasks",
   },
 ];
 

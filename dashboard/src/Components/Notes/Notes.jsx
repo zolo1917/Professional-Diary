@@ -3,6 +3,7 @@ import CreateEditNote from "./CreateEditNote";
 import NotesList from "./NotesList";
 import { useEffect, useState } from "react";
 import NoNoteSelected from "./NoNoteSelected";
+import { getNotes } from "../../Services/NotesService";
 
 function Notes() {
   const [selectedNote, setSelectedNote] = useState({
@@ -18,8 +19,8 @@ function Notes() {
     setSelectedNote(obj);
   };
 
-  const fetchNotes = () => {
-    fetch("http://localhost:4301/notes")
+  const fetchNotes = async () => {
+    await getNotes()
       .then(
         (response) => {
           if (response.status === 200) {
@@ -42,7 +43,9 @@ function Notes() {
         }
       });
   };
-  useEffect(fetchNotes, [selectedNote, triggerUpdateList]);
+  useEffect(() => {
+    fetchNotes();
+  }, [selectedNote, triggerUpdateList]);
 
   const updateList = () => {
     setSelectedNote({

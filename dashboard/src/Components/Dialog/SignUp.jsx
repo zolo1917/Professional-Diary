@@ -22,8 +22,7 @@ function SignupForm({ onClose }) {
             variant="filled"
             className={classes.formInputField}
             onChange={(event) => {
-              console.log(event);
-              setEmail(event.email);
+              setEmail(event.target.value);
             }}
           />
         </div>
@@ -34,8 +33,7 @@ function SignupForm({ onClose }) {
             variant="filled"
             className={classes.formInputField}
             onChange={(eventObj) => {
-              console.log(eventObj);
-              return setPassword();
+              return setPassword(eventObj.target.value);
             }}
           />
         </div>
@@ -48,8 +46,7 @@ function SignupForm({ onClose }) {
             variant="filled"
             className={classes.formInputField}
             onChange={(eventObj) => {
-              console.log(eventObj);
-              return setConfirmPassword();
+              return setConfirmPassword(eventObj.target.value);
             }}
           />
         </div>
@@ -68,7 +65,7 @@ function SignupForm({ onClose }) {
             type="submit"
             onClick={handleLogin}
           >
-            Submit
+            Sign Up
           </Button>
         </div>
       </FormControl>
