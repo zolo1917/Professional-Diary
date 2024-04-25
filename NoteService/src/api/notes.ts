@@ -10,7 +10,6 @@ router.get("/notes", async (req: Request, res: Response) => {
     console.log(err);
     res.status(500).json({ message: "Internal Server Error" });
   }
-  return res;
 });
 
 router.get("/notes/:id", async (req: Request, res: Response) => {

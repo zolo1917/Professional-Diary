@@ -16,7 +16,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
 function Navbar({ onCallBack, handleLoginCookie, userDetails, handleLogout }) {
   const [loginOpen, setLoginOpen] = useState(false);
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(userDetails ? true : false);
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
