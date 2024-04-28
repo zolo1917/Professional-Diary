@@ -1,0 +1,24 @@
+version: "1.0"
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    ports:
+      - 27017:27017
+dashboard:
+  build: dashboard
+  port:
+    - 3000:3000
+UserService:
+  build: UserService
+  port:
+    - 4300:4300
+NoteService:
+  build: NoteService
+  port:
+    - 4301:3000
