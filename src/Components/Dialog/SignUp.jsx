@@ -1,13 +1,26 @@
 import { useState } from "react";
 import classes from "./dialogue.module.css";
-import { Button, FormControl, FormLabel, TextField } from "@mui/material";
-function SignupForm({ onClose }) {
+import { Box, Button, FormControl, FormLabel, TextField } from "@mui/material";
+import { signup } from "../../Services/UserService";
+function SignupForm({ onClose, handleLoginCookie }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  function handleLogin() {
+  async function handleLogin() {
     // handle the login logic here
-    handleClose();
+    if (password === confirmPassword) {
+      let resp = await signup(email, password);
+      if (resp) {
+        handleLoginCookie({
+          id: resp.id,
+          accessToken: resp.accessToken,
+          refreshToken: resp.refreshToken,
+        });
+      }
+      handleClose();
+    } else {
+      handleClose();
+    }
   }
   function handleClose() {
     onClose();
@@ -15,7 +28,16 @@ function SignupForm({ onClose }) {
   return (
     <>
       <FormControl className={classes.loginForm}>
-        <div className={classes.formInputDiv}>
+        <Box
+          sx={{
+            width: "90%",
+            padding: "3%",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "baseline",
+            justifyContent: "center",
+          }}
+        >
           <FormLabel className={classes.formInputLabel}>Email</FormLabel>
           <TextField
             type="text"
@@ -25,8 +47,17 @@ function SignupForm({ onClose }) {
               setEmail(event.target.value);
             }}
           />
-        </div>
-        <div className={classes.formInputDiv}>
+        </Box>
+        <Box
+          sx={{
+            width: "90%",
+            padding: "3%",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "baseline",
+            justifyContent: "center",
+          }}
+        >
           <FormLabel className={classes.formInputLabel}>Password</FormLabel>
           <TextField
             type="password"
@@ -36,8 +67,17 @@ function SignupForm({ onClose }) {
               return setPassword(eventObj.target.value);
             }}
           />
-        </div>
-        <div className={classes.formInputDiv}>
+        </Box>
+        <Box
+          sx={{
+            width: "90%",
+            padding: "3%",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "baseline",
+            justifyContent: "center",
+          }}
+        >
           <FormLabel className={classes.formInputLabel}>
             Confirm Password
           </FormLabel>
@@ -49,8 +89,17 @@ function SignupForm({ onClose }) {
               return setConfirmPassword(eventObj.target.value);
             }}
           />
-        </div>
-        <div className={classes.formButtonContainer}>
+        </Box>
+        <Box
+          sx={{
+            width: "90%",
+            padding: "3%",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "baseline",
+            justifyContent: "center",
+          }}
+        >
           <Button
             variant="outlined"
             size="large"
@@ -67,7 +116,7 @@ function SignupForm({ onClose }) {
           >
             Sign Up
           </Button>
-        </div>
+        </Box>
       </FormControl>
     </>
   );

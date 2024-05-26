@@ -13,25 +13,25 @@ import { useState } from "react";
 import SignupForm from "./SignUp";
 import LoginForm from "./Login";
 function SignupLogin({ open, onClose, handleLoginCookie }) {
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(0);
 
   function handleChange(event) {
     setValue(event.target.tabIndex);
   }
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      sx={{ borderRadius: "15px", width: "auto", height: "auto" }}
+    >
       <DialogTitle> Login / Sign up</DialogTitle>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
+      <Box sx={{ borderBottom: 1, borderColor: "divider", width: "inherit" }}>
+        <Tabs value={value} onChange={handleChange}>
           <Tab label="Login" tabIndex={0} />
           <Tab label="Sign up" tabIndex={1} />
         </Tabs>
       </Box>
-      <Box sx={{ width: "30rem", height: "30rem" }}>
+      <Box sx={{ height: "auto" }}>
         {value == 0 ? (
           <LoginForm
             onClose={onClose}

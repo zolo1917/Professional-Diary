@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, FormControl, FormLabel, TextField } from "@mui/material";
+import { Box, Button, FormControl, FormLabel, TextField } from "@mui/material";
 import classes from "./dialogue.module.css";
 import { login } from "../../Services/UserService";
 function LoginForm({ onClose, handleLoginCookie }) {
@@ -22,7 +22,16 @@ function LoginForm({ onClose, handleLoginCookie }) {
   }
   return (
     <FormControl className={classes.loginForm}>
-      <div className={classes.formInputDiv}>
+      <Box
+        sx={{
+          width: "90%",
+          padding: "3%",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "baseline",
+          justifyContent: "center",
+        }}
+      >
         <FormLabel className={classes.formInputLabel}>Email</FormLabel>
         <TextField
           type="text"
@@ -32,8 +41,17 @@ function LoginForm({ onClose, handleLoginCookie }) {
             setEmail(event.target.value);
           }}
         />
-      </div>
-      <div className={classes.formInputDiv}>
+      </Box>
+      <Box
+        sx={{
+          width: "90%",
+          padding: "3%",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "baseline",
+          justifyContent: "center",
+        }}
+      >
         <FormLabel className={classes.formInputLabel}>Password</FormLabel>
         <TextField
           type="password"
@@ -43,12 +61,20 @@ function LoginForm({ onClose, handleLoginCookie }) {
             return setPassword(event.target.value);
           }}
         />
-      </div>
-      <div className={classes.formButtonContainer}>
+      </Box>
+      <Box
+        sx={{
+          display: "inline-flex",
+          width: "65%",
+          padding: "1.5rem 1.5rem",
+          justifyContent: "space-around",
+        }}
+      >
         <Button
           variant="outlined"
           size="large"
           type="submit"
+          sx={{}}
           onClick={handleClose}
         >
           Cancle
@@ -61,7 +87,7 @@ function LoginForm({ onClose, handleLoginCookie }) {
         >
           Submit
         </Button>
-      </div>
+      </Box>
     </FormControl>
   );
 }
