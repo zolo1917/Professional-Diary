@@ -52,7 +52,7 @@ jobs:
         name: "Authenticate to Google Cloud"
         uses: "google-github-actions/auth@v1.1.1"
         with:
-          credentails_json: "${{secrets.GCP_SA_KEY}}"
+          credentials_json: "${{secrets.GCP_SA_KEY}}"
       # Build the Docker image
       - name: Build
         run: |-
