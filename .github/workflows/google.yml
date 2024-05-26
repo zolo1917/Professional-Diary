@@ -64,4 +64,4 @@ jobs:
     # Push the Docker image to Google Artifact Registry
     - name: Publish
       run: |-
-        docker push "$REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$IMAGE:$GITHUB_SHA"
+        docker push "$REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA"
