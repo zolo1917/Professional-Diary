@@ -29,7 +29,7 @@ function App() {
     } else {
       navigate("/homepage");
     }
-  }, userDetails);
+  }, [userDetails]);
   const handleDrawerToggle = () => {
     setDrawerState((drawerState) => {
       return !drawerState;
