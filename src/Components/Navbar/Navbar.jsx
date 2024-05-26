@@ -11,8 +11,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SignupLogin from "../Dialog/RegisterDialogue";
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 function Navbar({ onCallBack, handleLoginCookie, userDetails, handleLogout }) {
   const [loginOpen, setLoginOpen] = useState(false);

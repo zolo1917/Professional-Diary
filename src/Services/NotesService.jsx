@@ -13,7 +13,7 @@ export async function getNotes() {
 
 export const createNote = async (noteObject) => {
   let userDetails = JSON.parse(Cookies.get("userDetails"));
-  const response = await fetch(noteUrl, {
+  await fetch(noteUrl, {
     method: "post",
     headers: {
       "Content-type": "application/json",
@@ -25,7 +25,7 @@ export const createNote = async (noteObject) => {
 
 export const updateNote = async (noteId, noteObject) => {
   let userDetails = JSON.parse(Cookies.get("userDetails"));
-  const response = await fetch(noteUrl + `/${noteId}`, {
+  await fetch(noteUrl + `/${noteId}`, {
     method: "put",
     headers: {
       "Content-type": "application/json",
@@ -37,7 +37,7 @@ export const updateNote = async (noteId, noteObject) => {
 
 export const deleteNote = async (noteId) => {
   let userDetails = JSON.parse(Cookies.get("userDetails"));
-  const response = await fetch(noteUrl + `/${noteId}`, {
+  await fetch(noteUrl + `/${noteId}`, {
     method: "delete",
     headers: {
       "Content-type": "application/json",

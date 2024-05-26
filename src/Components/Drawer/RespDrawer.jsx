@@ -1,6 +1,5 @@
 import {
   Box,
-  Container,
   CssBaseline,
   Drawer,
   List,
@@ -9,13 +8,11 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import ChecklistIcon from "@mui/icons-material/Checklist";
-import { useState } from "react";
 
 const routesObject = [
   {
@@ -46,15 +43,9 @@ const routesObject = [
 ];
 
 function ResponsiveDrawer({ drawerState, routeCallback }) {
-  const [isOpen, setIsOpen] = useState(drawerState);
-
-  const toggleOpenClose = () => {
-    setIsOpen(!isOpen);
-  };
   const handleRoute = (route) => {
     routeCallback(route);
   };
-  const handleTransition = () => {};
   const drawer = (
     <Box>
       <List>

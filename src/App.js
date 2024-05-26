@@ -3,16 +3,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import ResponsiveDrawer from "./Components/Drawer/RespDrawer";
 import { useEffect, useState } from "react";
 import Dashboard from "./Components/Dashboard/Dashboard";
-import {
-  BrowserRouter,
-  Navigate,
-  Outlet,
-  Route,
-  RouterProvider,
-  Routes,
-  createBrowserRouter,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import Projects from "./Components/Projects/Projects";
 import Accounts from "./Components/Accounts/Accounts";
 import Tasks from "./Components/Tasks/Tasks";
@@ -24,28 +15,6 @@ function App() {
   const [drawerState, setDrawerState] = useState(true);
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState(Cookies.get("userDetails"));
-  const router = createBrowserRouter([
-    {
-      path: "app/dashboard",
-      element: <Dashboard />,
-    },
-    {
-      path: "app/projects",
-      element: <Projects />,
-    },
-    {
-      path: "app/accounts",
-      element: <Accounts />,
-    },
-    {
-      path: "/app/notes",
-      element: <Notes />,
-    },
-    {
-      path: "app/tasks",
-      element: <Tasks />,
-    },
-  ]);
   const handleLoginCookie = (userDetails) => {
     console.log("Settings cookie");
     Cookies.set("userDetails", JSON.stringify(userDetails));

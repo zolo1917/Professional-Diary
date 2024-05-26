@@ -1,24 +1,19 @@
 import {
   Box,
   Button,
-  Divider,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Paper,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
 import NotesIcon from "@mui/icons-material/Notes";
-import { deleteNote, getNotes } from "../../Services/NotesService";
+import { deleteNote } from "../../Services/NotesService";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const NotesList = ({ notes, handleNoteSelection, onDelete }) => {
-  const [isNewNote, setIsNewNote] = useState(false);
   const createNewNote = () => {
-    setIsNewNote(true);
     handleNoteSelection({
       title: "",
       Content: "",

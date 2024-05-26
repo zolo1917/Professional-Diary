@@ -8,7 +8,7 @@ export const login = async (email, password) => {
     body: JSON.stringify({ email, password }),
   }).then(
     (response) => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         return response.json();
       } else {
         console.log(`The response status : ${response.status}`);
@@ -21,7 +21,7 @@ export const login = async (email, password) => {
   return response;
 };
 export const signup = async (email, password) => {
-  const response = await fetch(userServiceUrl + "/signup", {
+  await fetch(userServiceUrl + "/signup", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const signup = async (email, password) => {
     body: JSON.stringify({ email, password }),
   }).then(
     (response) => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         return response.json();
       } else {
         console.log(`The response status : ${response.status}`);

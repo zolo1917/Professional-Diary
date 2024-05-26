@@ -1,12 +1,4 @@
-import {
-  Button,
-  Dialog,
-  DialogTitle,
-  FormControl,
-  FormLabel,
-  TextField,
-  Box,
-} from "@mui/material";
+import { Dialog, DialogTitle, Box } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { useState } from "react";
@@ -32,7 +24,7 @@ function SignupLogin({ open, onClose, handleLoginCookie }) {
         </Tabs>
       </Box>
       <Box sx={{ height: "auto" }}>
-        {value == 0 ? (
+        {value === 0 ? (
           <LoginForm
             onClose={onClose}
             handleLoginCookie={handleLoginCookie}

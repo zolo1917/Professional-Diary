@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  Input,
-  InputLabel,
-  TextField,
-} from "@mui/material";
+import { Box, Button, FormControl, Input, InputLabel } from "@mui/material";
 import classes from "./editNote.module.css";
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";

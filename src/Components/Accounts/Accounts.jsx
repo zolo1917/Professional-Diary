@@ -5,11 +5,9 @@ import {
   Grid,
   List,
   ListItem,
-  ListItemButton,
   ListItemText,
   Typography,
 } from "@mui/material";
-import CommentIcon from "@mui/icons-material/Comment";
 
 function Accounts() {
   return (
