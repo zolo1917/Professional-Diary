@@ -62,6 +62,7 @@ jobs:
         with:
           path: "build/"
           destination: "my-test-apps-424418.appspot.com"
+          parent: false
 
       # - name: Build
       #   run: |-
