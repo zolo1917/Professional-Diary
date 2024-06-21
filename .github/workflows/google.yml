@@ -54,15 +54,24 @@ jobs:
         with:
           credentials_json: "${{secrets.GCP_SA_KEY}}"
       # Build the Docker image
-      - name: Build
-        run: |-
-          docker build \
-            --tag "$REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA" \
-            .
-      - name: Authorize Docker
-        run: gcloud auth configure-docker $REGION-docker.pkg.dev
+      - name: build application
+        run: npm run build
 
-      # Push the Docker image to Google Artifact Registry
-      - name: Publish
-        run: |-
-          docker push "$REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA"
+      - name: Push to bucket
+        uses: google-github-actions/upload-cloud-storage@v2
+        with:
+          path: "/build"
+          destination: "bucket-name"
+
+      # - name: Build
+      #   run: |-
+      #     docker build \
+      #       --tag "$REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA" \
+      #       .
+      # - name: Authorize Docker
+      #   run: gcloud auth configure-docker $REGION-docker.pkg.dev
+
+      # # Push the Docker image to Google Artifact Registry
+      # - name: Publish
+      #   run: |-
+      #     docker push "$REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA"
