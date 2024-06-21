@@ -27,6 +27,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "https://storage.googleapis.com/my-test-apps-424418.appspot.com",
   "eslintConfig": {
     "extends": [
       "react-app",
