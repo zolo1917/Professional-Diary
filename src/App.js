@@ -29,6 +29,7 @@ function App() {
     } else {
       navigate("/homepage");
     }
+    // eslint-disable-next-line
   }, [userDetails]);
   const handleDrawerToggle = () => {
     setDrawerState((drawerState) => {

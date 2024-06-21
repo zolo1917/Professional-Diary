@@ -60,8 +60,8 @@ jobs:
       - name: Push to bucket
         uses: google-github-actions/upload-cloud-storage@v2
         with:
-          path: "/build"
-          destination: "bucket-name"
+          path: "/build/*"
+          destination: "my-test-apps-424418.appspot.com"
 
       # - name: Build
       #   run: |-
