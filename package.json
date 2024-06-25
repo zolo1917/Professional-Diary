@@ -27,7 +27,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": "http://34.49.104.160/",
+  "homepage": "http://35.244.203.241/",
   "eslintConfig": {
     "extends": [
       "react-app",
