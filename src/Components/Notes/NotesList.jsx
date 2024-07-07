@@ -44,8 +44,9 @@ const NotesList = ({ notes, handleNoteSelection, onDelete }) => {
       <Box sx={{ height: "83%", overflowY: "auto" }}>
         <List sx={{ width: "100%" }}>
           {notes?.map((obj) => {
+            console.log(obj.id);
             return (
-              <ListItem key={obj._id} sx={{ width: "100%" }}>
+              <ListItem key={obj.id} sx={{ width: "100%" }}>
                 <Button
                   onClick={() => {
                     handleNoteSelection(obj);
@@ -68,7 +69,7 @@ const NotesList = ({ notes, handleNoteSelection, onDelete }) => {
                           variant="body2"
                           color="text.primary"
                         >
-                          {obj.createdAt}
+                          {/* {obj.createdAt} */}
                         </Typography>
                       </>
                     }

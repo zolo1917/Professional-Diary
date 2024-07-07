@@ -25,7 +25,7 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
         text: editorState,
         createdAt: note.createdAt,
       };
-      updateNote(note._id, obj);
+      updateNote(note.id, obj);
     } else {
       const obj = {
         title: title,

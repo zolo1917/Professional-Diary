@@ -1,4 +1,4 @@
-const userServiceUrl = "https://testapp.lazycoder.xyz ";
+const userServiceUrl = "https://testapp.lazycoder.xyz";
 export const login = async (email, password) => {
   const response = await fetch(userServiceUrl + "/login", {
     method: "post",

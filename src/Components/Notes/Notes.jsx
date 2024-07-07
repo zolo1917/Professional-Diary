@@ -37,6 +37,7 @@ function Notes() {
       )
       .then((data) => {
         if (data) {
+          console.log(data);
           setNotes(data);
         } else {
           setNotes([]);
