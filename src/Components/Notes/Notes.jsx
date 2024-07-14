@@ -18,9 +18,8 @@ function Notes() {
     setIsNoteSelected(true);
     setSelectedNote(obj);
   };
-
-  const fetchNotes = async () => {
-    await getNotes()
+  useEffect(() => {
+    getNotes()
       .then(
         (response) => {
           if (response.status === 200) {
@@ -31,22 +30,17 @@ function Notes() {
           }
         },
         (response) => {
-          console.log(response);
           setNotes([]);
         }
       )
       .then((data) => {
         if (data) {
-          console.log(data);
           setNotes(data);
         } else {
           setNotes([]);
         }
       });
-  };
-  useEffect(() => {
-    fetchNotes();
-  }, [selectedNote, triggerUpdateList]);
+  }, [triggerUpdateList]);
 
   const updateList = () => {
     setSelectedNote({
@@ -54,10 +48,12 @@ function Notes() {
       text: "",
     });
     setIsNoteSelected(false);
+    setTriggerUpdateList((previousState) => {
+      return !previousState;
+    });
   };
 
   const deleteNote = () => {
-    console.log(triggerUpdateList);
     setTriggerUpdateList((previousState) => {
       return !previousState;
     });

@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, Input, InputLabel } from "@mui/material";
 import classes from "./editNote.module.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import { createNote, updateNote } from "../../Services/NotesService";
@@ -16,9 +16,9 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
     setEditorState(note.text);
     setTitle(note.title);
   }, [note]);
-  const handleSubmitClick = (e) => {
+  const handleSubmitClick = useCallback((e) => {
     e.preventDefault();
-    if (note._id) {
+    if (note.id) {
       // update existing note
       const obj = {
         title: title,
@@ -34,7 +34,7 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
       createNote(obj);
     }
     onSubmitHandler();
-  };
+  });
   return (
     <Box flex={8} sx={{ height: "100%", width: "100%" }}>
       <form className={`${classes.fullLength} ${classes.leftSpace}`}>

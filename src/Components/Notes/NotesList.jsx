@@ -11,6 +11,7 @@ import {
 import NotesIcon from "@mui/icons-material/Notes";
 import { deleteNote } from "../../Services/NotesService";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useCallback } from "react";
 
 const NotesList = ({ notes, handleNoteSelection, onDelete }) => {
   const createNewNote = () => {
@@ -21,10 +22,10 @@ const NotesList = ({ notes, handleNoteSelection, onDelete }) => {
     });
   };
 
-  const handleDeleteNote = (obj) => {
-    deleteNote(obj._id);
+  const handleDeleteNote = useCallback((obj) => {
+    deleteNote(obj.id);
     onDelete();
-  };
+  });
 
   return (
     <Box flex={5} sx={{ width: "100%" }}>
@@ -44,7 +45,6 @@ const NotesList = ({ notes, handleNoteSelection, onDelete }) => {
       <Box sx={{ height: "83%", overflowY: "auto" }}>
         <List sx={{ width: "100%" }}>
           {notes?.map((obj) => {
-            console.log(obj.id);
             return (
               <ListItem key={obj.id} sx={{ width: "100%" }}>
                 <Button
