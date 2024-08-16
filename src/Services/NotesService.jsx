@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-const noteUrl = "http://localhost:4301/notes";
+const noteUrl = "http://34.42.111.229/notes";
 export async function getNotes() {
   let userDetails = JSON.parse(Cookies.get("userDetails"));
   return fetch(noteUrl, {
@@ -8,6 +8,10 @@ export async function getNotes() {
       "Content-type": "application/json",
       Authorization: `Bearer ${userDetails?.accessToken}`,
     },
+  }).then((response) => {
+    if (response.status === 200 || response.status === 304) {
+      return response.json();
+    }
   });
 }
 

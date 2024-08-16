@@ -1,9 +1,10 @@
 import { Divider, Stack } from "@mui/material";
 import CreateEditNote from "./CreateEditNote";
 import NotesList from "./NotesList";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import NoNoteSelected from "./NoNoteSelected";
 import { getNotes } from "../../Services/NotesService";
+import { ToggleOnRounded } from "@mui/icons-material";
 
 function Notes() {
   const [selectedNote, setSelectedNote] = useState({
@@ -19,28 +20,21 @@ function Notes() {
     setSelectedNote(obj);
   };
   useEffect(() => {
-    getNotes()
-      .then(
-        (response) => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            console.log(response.json());
-            setNotes([]);
-          }
-        },
-        (response) => {
-          setNotes([]);
-        }
-      )
-      .then((data) => {
-        if (data) {
-          setNotes(data);
-        } else {
-          setNotes([]);
-        }
-      });
+    const timeoutId = setTimeout(async () => {
+      await getDataFromBackend();
+    }, 1000);
   }, [triggerUpdateList]);
+
+  const getDataFromBackend = useCallback(() => {
+    getNotes().then((data) => {
+      console.log(data);
+      if (data) {
+        setNotes(data);
+      } else {
+        setNotes([]);
+      }
+    });
+  }, []);
 
   const updateList = () => {
     setSelectedNote({
@@ -48,15 +42,17 @@ function Notes() {
       text: "",
     });
     setIsNoteSelected(false);
+    toggleTriggerUpdateList();
+  };
+
+  const toggleTriggerUpdateList = () => {
     setTriggerUpdateList((previousState) => {
       return !previousState;
     });
   };
 
   const deleteNote = () => {
-    setTriggerUpdateList((previousState) => {
-      return !previousState;
-    });
+    toggleTriggerUpdateList();
   };
 
   let selectedPage = <NoNoteSelected></NoNoteSelected>;
