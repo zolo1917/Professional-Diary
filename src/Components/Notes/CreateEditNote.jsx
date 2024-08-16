@@ -16,25 +16,28 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
     setEditorState(note.text);
     setTitle(note.title);
   }, [note]);
-  const handleSubmitClick = useCallback((e) => {
-    e.preventDefault();
-    if (note.id) {
-      // update existing note
-      const obj = {
-        title: title,
-        text: editorState,
-        createdAt: note.createdAt,
-      };
-      updateNote(note.id, obj);
-    } else {
-      const obj = {
-        title: title,
-        text: editorState,
-      };
-      createNote(obj);
-    }
-    onSubmitHandler();
-  });
+  const handleSubmitClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      console.log(editorState);
+      if (note.id) {
+        const obj = {
+          title: title,
+          text: editorState,
+          createdAt: note.createdAt,
+        };
+        updateNote(note.id, obj);
+      } else {
+        const obj = {
+          title: title,
+          text: editorState,
+        };
+        createNote(obj);
+      }
+      onSubmitHandler();
+    },
+    [title, editorState, onSubmitHandler]
+  );
   return (
     <Box flex={8} sx={{ height: "100%", width: "100%" }}>
       <form className={`${classes.fullLength} ${classes.leftSpace}`}>
@@ -42,7 +45,10 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
           <InputLabel>Title</InputLabel>
           <Input
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => {
+              setTitle(e.target.value);
+              console.log(title);
+            }}
           ></Input>
         </FormControl>
         <FormControl

@@ -25,7 +25,7 @@ const NotesList = ({ notes, handleNoteSelection, onDelete }) => {
   const handleDeleteNote = useCallback((obj) => {
     deleteNote(obj.id);
     onDelete();
-  });
+  }, []);
 
   return (
     <Box flex={5} sx={{ width: "100%" }}>

@@ -4,7 +4,6 @@ import NotesList from "./NotesList";
 import { useCallback, useEffect, useState } from "react";
 import NoNoteSelected from "./NoNoteSelected";
 import { getNotes } from "../../Services/NotesService";
-import { ToggleOnRounded } from "@mui/icons-material";
 
 function Notes() {
   const [selectedNote, setSelectedNote] = useState({
@@ -20,14 +19,13 @@ function Notes() {
     setSelectedNote(obj);
   };
   useEffect(() => {
-    const timeoutId = setTimeout(async () => {
+    setTimeout(async () => {
       await getDataFromBackend();
     }, 1000);
   }, [triggerUpdateList]);
 
   const getDataFromBackend = useCallback(() => {
     getNotes().then((data) => {
-      console.log(data);
       if (data) {
         setNotes(data);
       } else {
