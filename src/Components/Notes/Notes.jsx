@@ -18,12 +18,6 @@ function Notes() {
     setIsNoteSelected(true);
     setSelectedNote(obj);
   };
-  useEffect(() => {
-    setTimeout(async () => {
-      await getDataFromBackend();
-    }, 1000);
-  }, [triggerUpdateList]);
-
   const getDataFromBackend = useCallback(() => {
     getNotes().then((data) => {
       if (data) {
@@ -33,6 +27,11 @@ function Notes() {
       }
     });
   }, []);
+  useEffect(() => {
+    setTimeout(async () => {
+      await getDataFromBackend();
+    }, 800);
+  }, [triggerUpdateList, getDataFromBackend]);
 
   const updateList = () => {
     setSelectedNote({
@@ -51,6 +50,7 @@ function Notes() {
 
   const deleteNote = () => {
     toggleTriggerUpdateList();
+    setIsNoteSelected(false);
   };
 
   let selectedPage = <NoNoteSelected></NoNoteSelected>;
