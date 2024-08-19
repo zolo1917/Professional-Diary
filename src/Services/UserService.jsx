@@ -1,4 +1,4 @@
-const userServiceUrl = "http://34.16.125.61:80";
+const userServiceUrl = "https://userservice.lazycoder.xyz";
 export const login = async (email, password) => {
   const response = await fetch(userServiceUrl + "/login", {
     method: "post",
