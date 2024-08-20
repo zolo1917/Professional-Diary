@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-const noteUrl = "http://34.42.111.229/notes";
+const noteUrl = "https://noteserver.lazycoder.xyz/notes";
 export async function getNotes() {
   let userDetails = JSON.parse(Cookies.get("userDetails"));
   return fetch(noteUrl, {
