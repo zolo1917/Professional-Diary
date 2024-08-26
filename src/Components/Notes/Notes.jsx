@@ -74,7 +74,7 @@ function Notes() {
         handleNoteSelection={handleNoteSelection}
         onDelete={deleteNote}
       />
-      {selectedPage}
+      {/* {selectedPage} */}
     </Stack>
   );
 }

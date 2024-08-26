@@ -6,11 +6,18 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { theme } from "./theme";
 import { ThemeProvider } from "@mui/material";
-
+import styled from "@emotion/styled/macro";
+const GlobalStyle = styled.createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+  }
+`;
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
+      <GlobalStyle></GlobalStyle>
       <BrowserRouter>
         <App />
       </BrowserRouter>

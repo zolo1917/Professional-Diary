@@ -26,11 +26,6 @@ const routesObject = [
     route: "/app/projects",
   },
   {
-    label: "Accounts",
-    icon: <AccountBalanceWalletIcon />,
-    route: "/app/accounts",
-  },
-  {
     label: "Notes",
     icon: <TextSnippetIcon />,
     route: "/app/notes",
@@ -68,7 +63,7 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
         variant="temporary"
         open={drawerState}
         sx={{
-          display: { xs: "block", sm: "none" },
+          display: { xs: "block", sm: "block", md: "none", lg: "none" },
           position: "inherit",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
@@ -83,7 +78,7 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
         container={document.getElementById("drawerContainer")}
         variant="permanent"
         sx={{
-          display: { xs: "none", sm: "block" },
+          display: { xs: "none", sm: "none", md: "block", lg: "block" },
           position: "static",
           flexShrink: 0,
           "& .MuiDrawer-paper": {

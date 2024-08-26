@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import { Navigate, Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import Projects from "./Components/Projects/Projects";
-import Accounts from "./Components/Accounts/Accounts";
 import Tasks from "./Components/Tasks/Tasks";
 import Notes from "./Components/Notes/Notes";
 import { Box, Stack } from "@mui/material";
@@ -54,7 +53,11 @@ function App() {
           path="/app/*"
           element={
             <Stack direction="row" justifyContent={"start"}>
-              <Box sx={{ width: { xs: "0", sm: "10.5rem" } }}>
+              <Box
+                sx={{
+                  width: { xs: "0", sm: "0", md: "10.5rem", lg: "10.5rem" },
+                }}
+              >
                 <ResponsiveDrawer
                   drawerState={drawerState}
                   routeCallback={handleRoute}
@@ -65,7 +68,6 @@ function App() {
                   <Route path="/homepage" element={<Homepage />}></Route>
                   <Route path="/dashboard" element={<Dashboard />}></Route>
                   <Route path="/projects" element={<Projects />}></Route>
-                  <Route path="/accounts" element={<Accounts />}></Route>
                   <Route path="/notes" element={<Notes />}></Route>
                   <Route path="/tasks" element={<Tasks />}></Route>
                 </Routes>
