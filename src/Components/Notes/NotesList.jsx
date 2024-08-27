@@ -18,6 +18,7 @@ import { deleteNote } from "../../Services/NotesService";
 import classes from "./NoteList.module.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useCallback } from "react";
+import parse from "html-react-parser";
 
 const NotesList = ({ notes, handleNoteSelection, onDelete }) => {
   const createNewNote = () => {
@@ -121,16 +122,16 @@ const NotesList = ({ notes, handleNoteSelection, onDelete }) => {
           flexWrap="wrap"
         >
           {notes?.map((obj) => {
-            console.log(obj);
+            const contentHtml = parse(obj.text);
             return (
               <Card key={obj.id} sx={{ width: "30%", height: "17rem" }}>
-                <CardActionArea sx={{ height: "100%" }}>
+                <CardActionArea>
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                       {obj.title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {obj.text}
+                      {contentHtml}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
