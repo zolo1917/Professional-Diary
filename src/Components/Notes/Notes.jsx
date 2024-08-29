@@ -1,23 +1,21 @@
 import { Divider, Stack } from "@mui/material";
-import CreateEditNote from "./CreateEditNote";
 import NotesList from "./NotesList";
 import { useCallback, useEffect, useState } from "react";
-import NoNoteSelected from "./NoNoteSelected";
 import { getNotes } from "../../Services/NotesService";
 
 function Notes() {
-  const [selectedNote, setSelectedNote] = useState({
-    id: "",
-    title: "",
-    text: "",
-  });
+  // const [selectedNote, setSelectedNote] = useState({
+  //   id: "",
+  //   title: "",
+  //   text: "",
+  // });
   const [notes, setNotes] = useState([]);
-  const [isNoteSelected, setIsNoteSelected] = useState(false);
+  // const [isNoteSelected, setIsNoteSelected] = useState(false);
   const [triggerUpdateList, setTriggerUpdateList] = useState(false);
-  const handleNoteSelection = (obj) => {
-    setIsNoteSelected(true);
-    setSelectedNote(obj);
-  };
+  // const handleNoteSelection = (obj) => {
+  //   setIsNoteSelected(true);
+  //   setSelectedNote(obj);
+  // };
   const getDataFromBackend = useCallback(() => {
     getNotes().then((data) => {
       if (data) {
@@ -33,14 +31,14 @@ function Notes() {
     }, 800);
   }, [triggerUpdateList, getDataFromBackend]);
 
-  const updateList = () => {
-    setSelectedNote({
-      title: "",
-      text: "",
-    });
-    setIsNoteSelected(false);
-    toggleTriggerUpdateList();
-  };
+  // const updateList = () => {
+  //   // setSelectedNote({
+  //   //   title: "",
+  //   //   text: "",
+  //   // });
+  //   // setIsNoteSelected(false);
+  //   toggleTriggerUpdateList();
+  // };
 
   const toggleTriggerUpdateList = () => {
     setTriggerUpdateList((previousState) => {
@@ -50,17 +48,17 @@ function Notes() {
 
   const deleteNote = () => {
     toggleTriggerUpdateList();
-    setIsNoteSelected(false);
+    // setIsNoteSelected(false);
   };
 
-  let selectedPage = <NoNoteSelected></NoNoteSelected>;
-  if (isNoteSelected) {
-    selectedPage = (
-      <CreateEditNote note={selectedNote} onSubmitHandler={updateList} />
-    );
-  } else {
-    selectedPage = <NoNoteSelected></NoNoteSelected>;
-  }
+  // let selectedPage = <NoNoteSelected></NoNoteSelected>;
+  // if (isNoteSelected) {
+  //   selectedPage = (
+  //     <CreateEditNote note={selectedNote} onSubmitHandler={updateList} />
+  //   );
+  // } else {
+  //   selectedPage = <NoNoteSelected></NoNoteSelected>;
+  // }
 
   return (
     <Stack
@@ -71,7 +69,7 @@ function Notes() {
     >
       <NotesList
         notes={notes}
-        handleNoteSelection={handleNoteSelection}
+        handleUpdateList={toggleTriggerUpdateList}
         onDelete={deleteNote}
       />
       {/* {selectedPage} */}

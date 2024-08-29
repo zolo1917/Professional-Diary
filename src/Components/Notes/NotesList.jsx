@@ -1,105 +1,64 @@
 import {
   Box,
-  Button,
   Card,
   CardActionArea,
   CardContent,
-  Divider,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
+  CardHeader,
+  Fade,
+  IconButton,
+  Menu,
+  MenuItem,
   Stack,
-  Typography,
+  Tab,
+  Tabs,
 } from "@mui/material";
-import NotesIcon from "@mui/icons-material/Notes";
 import { deleteNote } from "../../Services/NotesService";
 import classes from "./NoteList.module.css";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { useCallback } from "react";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useCallback, useEffect, useState } from "react";
 import parse from "html-react-parser";
 
-const NotesList = ({ notes, handleNoteSelection, onDelete }) => {
-  const createNewNote = () => {
-    handleNoteSelection({
-      title: "",
-      Content: "",
-      createdDate: new Date().toDateString(),
-    });
+const NotesList = ({ notes, handleUpdateList, onDelete }) => {
+  const [tabValue, setTabValue] = useState("0");
+  const [show, setShow] = useState(false);
+  const [openMenu, setOpenMenu] = useState(null);
+  const open = Boolean(openMenu);
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+    handleUpdateList();
+    setShow(false);
+  };
+  const handleMenuOpen = (event) => {
+    setOpenMenu(event.currentTarget);
+  };
+  const handleMenuClose = (event) => {
+    setOpenMenu(null);
+  };
+
+  const handleViewNote = (obj) => {
+    handleMenuClose();
+  };
+
+  const handleEditNode = (obj) => {
+    handleMenuClose();
   };
 
   const handleDeleteNote = useCallback(
     (obj) => {
+      console.log("in Delete Note");
       deleteNote(obj.id);
+      handleMenuClose();
       onDelete();
     },
     [onDelete]
   );
+  useEffect(() => {
+    if (notes.length > 0) {
+      setShow(true);
+    }
+  }, [notes]);
 
   return (
-    // <Box flex={5} sx={{ width: "100%" }}>
-
-    //   <Box
-    //     sx={{
-    //       width: "100%",
-    //       display: "flex",
-    //       justifyContent: "start",
-    //       alignContent: "center",
-    //       padding: "2vh 1vh",
-    //     }}
-    //   >
-    //     <Button onClick={createNewNote} variant="contained">
-    //       New Note
-    //     </Button>
-    //   </Box>
-    //   <Box sx={{ height: "83%", overflowY: "auto" }}>
-    //     <List sx={{ width: "100%" }}>
-    //       {notes?.map((obj) => {
-    //         return (
-    //           <ListItem key={obj.id} sx={{ width: "100%" }}>
-    //             <Button
-    //               onClick={() => {
-    //                 handleNoteSelection(obj);
-    //               }}
-    //               sx={{
-    //                 alignItems: "start",
-    //                 width: "100%",
-    //               }}
-    //             >
-    //               <ListItemIcon>
-    //                 <NotesIcon />
-    //               </ListItemIcon>
-    //               <ListItemText
-    //                 primary={obj.title}
-    //                 secondary={
-    //                   <>
-    //                     <Typography
-    //                       sx={{ display: "inline" }}
-    //                       component="span"
-    //                       variant="body2"
-    //                       color="text.primary"
-    //                     >
-    //                       {/* {obj.createdAt} */}
-    //                     </Typography>
-    //                   </>
-    //                 }
-    //               ></ListItemText>
-    //             </Button>
-    //             <ListItemButton
-    //               onClick={(e) => {
-    //                 e.preventDefault();
-    //                 handleDeleteNote(obj);
-    //               }}
-    //             >
-    //               <DeleteIcon></DeleteIcon>
-    //             </ListItemButton>
-    //           </ListItem>
-    //         );
-    //       })}
-    //     </List>
-    //   </Box>
-    // </Box>
     <Box
       sx={{
         width: "100%",
@@ -113,32 +72,63 @@ const NotesList = ({ notes, handleNoteSelection, onDelete }) => {
         <div className={classes.listTitle}>
           <h1 style={{ fontFamily: "Roboto Mono" }}>Your Notes</h1>
         </div>
-        <Divider color="primary"></Divider>
-        <Stack
-          sx={{ margin: "1rem", width: "100%" }}
-          direction="row"
-          spacing={2}
-          useFlexGap
-          flexWrap="wrap"
-        >
-          {notes?.map((obj) => {
-            const contentHtml = parse(obj.text);
-            return (
-              <Card key={obj.id} sx={{ width: "30%", height: "17rem" }}>
-                <CardActionArea>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {obj.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {contentHtml}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            );
-          })}
-        </Stack>
+
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs value={tabValue} onChange={handleTabChange}>
+            <Tab label="Notes" value="0" />
+            <Tab label="Shared" value="1" />
+            <Tab label="Pinned" value="2" />
+            <Tab label="Favorite Notes" value="3" />
+          </Tabs>
+        </Box>
+        <Fade bottom in={show} appear={false} timeout={800}>
+          <div>
+            <Stack
+              sx={{ margin: "1rem", width: "100%" }}
+              direction="row"
+              spacing={2}
+              useFlexGap
+              flexWrap="wrap"
+            >
+              {notes?.map((obj) => {
+                const contentHtml = parse(obj.text);
+                return (
+                  <Card key={obj.id} sx={{ width: "30%", height: "17rem" }}>
+                    <CardHeader
+                      title={obj.title}
+                      action={
+                        <IconButton
+                          aria-label="settings"
+                          onClick={handleMenuOpen}
+                        >
+                          <MoreVertIcon />
+                        </IconButton>
+                      }
+                    ></CardHeader>
+                    <Menu
+                      open={open}
+                      onClose={handleMenuClose}
+                      anchorEl={openMenu}
+                    >
+                      <MenuItem onClick={() => handleViewNote(obj)}>
+                        View
+                      </MenuItem>
+                      <MenuItem onClick={() => handleEditNode(obj)}>
+                        Edit
+                      </MenuItem>
+                      <MenuItem onClick={() => handleDeleteNote(obj)}>
+                        Delete
+                      </MenuItem>
+                    </Menu>
+                    <CardActionArea>
+                      <CardContent>{contentHtml}</CardContent>
+                    </CardActionArea>
+                  </Card>
+                );
+              })}
+            </Stack>
+          </div>
+        </Fade>
       </Card>
     </Box>
   );
