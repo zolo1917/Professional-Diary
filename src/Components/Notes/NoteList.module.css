@@ -41,3 +41,22 @@
 .removeOpacity {
   opacity: 0;
 }
+
+.titleContainer {
+  margin: 5%;
+}
+
+.spaceLeft {
+  margin-left: 0.75rem;
+}
+
+.menuItem {
+  height: 2.5rem;
+  background-color: white;
+  color: black;
+}
+
+.CardButtonContainer {
+  background-color: inherit;
+  color: inherit;
+}

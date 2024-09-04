@@ -2,6 +2,7 @@ import {
   Box,
   Card,
   CardActionArea,
+  CardActions,
   CardContent,
   CardHeader,
   Fade,
@@ -17,8 +18,19 @@ import classes from "./NoteList.module.css";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useCallback, useEffect, useState } from "react";
 import parse from "html-react-parser";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
-const NotesList = ({ notes, handleUpdateList, onDelete }) => {
+const NotesList = ({
+  notes,
+  handleNoteSelection,
+  handleUpdateList,
+  onDelete,
+}) => {
   const [tabValue, setTabValue] = useState("0");
   const [show, setShow] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
@@ -40,6 +52,8 @@ const NotesList = ({ notes, handleUpdateList, onDelete }) => {
   };
 
   const handleEditNode = (obj) => {
+    console.log("this is the obj: " + obj.title);
+    handleNoteSelection(obj);
     handleMenuClose();
   };
 
@@ -81,7 +95,7 @@ const NotesList = ({ notes, handleUpdateList, onDelete }) => {
             <Tab label="Favorite Notes" value="3" />
           </Tabs>
         </Box>
-        <Fade bottom in={show} appear={false} timeout={800}>
+        <Fade in={show} appear={false} timeout={800}>
           <div>
             <Stack
               sx={{ margin: "1rem", width: "100%" }}
@@ -92,12 +106,33 @@ const NotesList = ({ notes, handleUpdateList, onDelete }) => {
             >
               {notes?.map((obj) => {
                 const contentHtml = parse(obj.text);
+                console.log(obj);
                 return (
-                  <Card key={obj.id} sx={{ width: "30%", height: "17rem" }}>
+                  <Card
+                    key={obj.id}
+                    sx={{
+                      width: "30%",
+                      "-webkit-transition": "background 0.5s",
+                      transition: "background 0.5s",
+                      ":hover": {
+                        background: "black",
+                        color: "white",
+                      },
+                    }}
+                  >
                     <CardHeader
-                      title={obj.title}
+                      avatar={
+                        <CalendarMonthIcon
+                          sx={{
+                            ":hover": {
+                              color: "white",
+                            },
+                          }}
+                        />
+                      }
                       action={
                         <IconButton
+                          color="inherit"
                           aria-label="settings"
                           onClick={handleMenuOpen}
                         >
@@ -110,19 +145,51 @@ const NotesList = ({ notes, handleUpdateList, onDelete }) => {
                       onClose={handleMenuClose}
                       anchorEl={openMenu}
                     >
-                      <MenuItem onClick={() => handleViewNote(obj)}>
-                        View
+                      <MenuItem
+                        sx={{ backgroundColor: "white", color: "black" }}
+                        className={classes.menuItem}
+                        onClick={() => handleViewNote(obj)}
+                      >
+                        <RemoveRedEyeIcon></RemoveRedEyeIcon>
+                        <div className={classes.spaceLeft}>
+                          <p>View</p>
+                        </div>
                       </MenuItem>
-                      <MenuItem onClick={() => handleEditNode(obj)}>
-                        Edit
+                      <MenuItem
+                        sx={{ backgroundColor: "white", color: "black" }}
+                        className={classes.menuItem}
+                        onClick={() => handleEditNode(obj)}
+                      >
+                        <EditIcon></EditIcon>
+                        <div className={classes.spaceLeft}>
+                          <p>Edit</p>
+                        </div>
                       </MenuItem>
-                      <MenuItem onClick={() => handleDeleteNote(obj)}>
-                        Delete
+                      <MenuItem
+                        sx={{ backgroundColor: "white", color: "black" }}
+                        className={classes.menuItem}
+                        onClick={() => handleDeleteNote(obj)}
+                      >
+                        <DeleteIcon></DeleteIcon>
+                        <div className={classes.spaceLeft}>
+                          <p>Delete</p>
+                        </div>
                       </MenuItem>
                     </Menu>
-                    <CardActionArea>
+                    <Box>
+                      <header className={classes.titleContainer}>
+                        <h2>{obj.title}</h2>
+                      </header>
                       <CardContent>{contentHtml}</CardContent>
-                    </CardActionArea>
+                    </Box>
+                    <CardActions>
+                      <IconButton color="inherit" aria-label="add to favorites">
+                        <FavoriteIcon />
+                      </IconButton>
+                      <IconButton color="inherit" aria-label="share">
+                        <ShareIcon />
+                      </IconButton>
+                    </CardActions>
                   </Card>
                 );
               })}

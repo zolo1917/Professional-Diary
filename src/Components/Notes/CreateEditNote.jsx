@@ -9,8 +9,7 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
   const [title, setTitle] = useState(note.title);
   const [editorState, setEditorState] = useState("");
   const clearFields = () => {
-    setTitle("");
-    setEditorState("");
+    onSubmitHandler();
   };
   useEffect(() => {
     setEditorState(note.text);
@@ -39,8 +38,10 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
     [title, editorState, onSubmitHandler, note.createdAt, note.id]
   );
   return (
-    <Box flex={8} sx={{ height: "100%", width: "100%" }}>
-      <form className={`${classes.fullLength} ${classes.leftSpace}`}>
+    <Box flex={8} sx={{ height: "100%", width: "100%", padding: "2.5%" }}>
+      <form
+        className={`${classes.fullLength} ${classes.leftSpace} ${classes.formHeight}`}
+      >
         <FormControl variant="standard" sx={{ width: "95%" }}>
           <InputLabel>Title</InputLabel>
           <Input
@@ -53,7 +54,7 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
         </FormControl>
         <FormControl
           variant="standard"
-          sx={{ width: "95%", paddingTop: "2rem", height: "70%" }}
+          sx={{ width: "95%", paddingTop: "2rem", height: "10rem" }}
         >
           <ReactQuill
             className={classes.fullsize}
@@ -76,7 +77,7 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
             onClick={clearFields}
             sx={{ margin: "1.5rem" }}
           >
-            Clear
+            Cancel
           </Button>
           <Button
             variant="contained"
