@@ -16,6 +16,17 @@ export async function getNotes() {
   });
 }
 
+export function getNoteById(noteId) {
+  let userDetails = JSON.parse(Cookies.get("userDetails"));
+  return fetch(noteUrl + `/${noteId}`, {
+    method: "get",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${userDetails?.accessToken}`,
+    },
+  });
+}
+
 export const createNote = async (noteObject) => {
   let userDetails = JSON.parse(Cookies.get("userDetails"));
   await fetch(noteUrl, {
