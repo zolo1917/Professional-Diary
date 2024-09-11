@@ -24,7 +24,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import PushPinOutlinedIcon from "@mui/icons-material/PushPinOutlined";
+import PushPinIcon from "@mui/icons-material/PushPin";
 const NotesList = ({
   notes,
   handleNoteSelection,
@@ -50,7 +52,7 @@ const NotesList = ({
     setOpenMenu(null);
   };
 
-  const handleViewNote = (obj) => {
+  const handleViewNote = () => {
     handleMenuClose();
   };
 
@@ -75,6 +77,7 @@ const NotesList = ({
       sx={{
         width: "100%",
         display: "flex",
+        height: "80%",
         justifyContent: "start",
         alignContent: "center",
         padding: "2vh 1vh",
@@ -96,7 +99,12 @@ const NotesList = ({
         <Fade in={show} appear={false} timeout={800}>
           <div>
             <Stack
-              sx={{ margin: "1rem", width: "100%" }}
+              sx={{
+                margin: "1rem",
+                width: "100%",
+                maxHeight: "30rem",
+                overflowY: "auto",
+              }}
               direction="row"
               spacing={2}
               useFlexGap
@@ -108,13 +116,14 @@ const NotesList = ({
                   <Card
                     key={obj.id}
                     sx={{
-                      width: "30%",
+                      width: "18rem",
                       "-webkit-transition": "background 0.5s",
                       transition: "background 0.5s",
                       ":hover": {
                         background: "black",
                         color: "white",
                       },
+                      height: "20rem",
                     }}
                   >
                     <CardHeader
@@ -145,14 +154,29 @@ const NotesList = ({
                       <header className={classes.titleContainer}>
                         <h2>{obj.title}</h2>
                       </header>
-                      <CardContent>{contentHtml}</CardContent>
+                      <CardContent
+                        sx={{
+                          height: "6.5rem",
+                          maxHeight: "6.5 rem",
+                          overflow: "clip",
+                        }}
+                      >
+                        {contentHtml}
+                      </CardContent>
                     </Box>
-                    <CardActions>
+                    <CardActions sx={{ margin: "0.5rem" }}>
                       <IconButton color="inherit" aria-label="add to favorites">
-                        <FavoriteIcon />
+                        {obj.isFav ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                       </IconButton>
                       <IconButton color="inherit" aria-label="share">
                         <ShareIcon />
+                      </IconButton>
+                      <IconButton color="inherit" aria-label="pin">
+                        {obj.isPinned ? (
+                          <PushPinIcon />
+                        ) : (
+                          <PushPinOutlinedIcon />
+                        )}
                       </IconButton>
                     </CardActions>
                   </Card>
