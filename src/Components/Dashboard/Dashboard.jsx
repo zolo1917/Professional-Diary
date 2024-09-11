@@ -1,4 +1,4 @@
-function Dashboard() {
+function Dashboard(handleLogout) {
   return (
     <>
       <p> this is the Dashboard page</p>

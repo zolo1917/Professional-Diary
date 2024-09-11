@@ -4,13 +4,14 @@ import { useCallback, useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import { createNote, updateNote } from "../../Services/NotesService";
+import { Navigate, useNavigate } from "react-router";
 
 const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
   const [title, setTitle] = useState(note.title);
   const [editorState, setEditorState] = useState("");
+  const navigate = useNavigate();
   const clearFields = () => {
-    setTitle("");
-    setEditorState("");
+    onSubmitHandler();
   };
   useEffect(() => {
     setEditorState(note.text);
@@ -19,7 +20,6 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
   const handleSubmitClick = useCallback(
     (e) => {
       e.preventDefault();
-      console.log(editorState);
       if (note.id) {
         const obj = {
           title: title,
@@ -32,28 +32,31 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
           title: title,
           text: editorState,
         };
-        createNote(obj);
+        createNote(obj).catch((error) => {
+          navigate("/homepage");
+        });
       }
       onSubmitHandler();
     },
     [title, editorState, onSubmitHandler, note.createdAt, note.id]
   );
   return (
-    <Box flex={8} sx={{ height: "100%", width: "100%" }}>
-      <form className={`${classes.fullLength} ${classes.leftSpace}`}>
+    <Box flex={8} sx={{ height: "100%", width: "100%", padding: "2.5%" }}>
+      <form
+        className={`${classes.fullLength} ${classes.leftSpace} ${classes.formHeight}`}
+      >
         <FormControl variant="standard" sx={{ width: "95%" }}>
           <InputLabel>Title</InputLabel>
           <Input
             value={title}
             onChange={(e) => {
               setTitle(e.target.value);
-              console.log(title);
             }}
           ></Input>
         </FormControl>
         <FormControl
           variant="standard"
-          sx={{ width: "95%", paddingTop: "2rem", height: "70%" }}
+          sx={{ width: "95%", paddingTop: "2rem", height: "10rem" }}
         >
           <ReactQuill
             className={classes.fullsize}
@@ -76,7 +79,7 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
             onClick={clearFields}
             sx={{ margin: "1.5rem" }}
           >
-            Clear
+            Cancel
           </Button>
           <Button
             variant="contained"

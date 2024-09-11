@@ -1,4 +1,5 @@
-const userServiceUrl = "https://userservice.lazycoder.xyz";
+// const userServiceUrl = "https://userservice.lazycoder.xyz";
+const userServiceUrl = "http://localhost:4300";
 export const login = async (email, password) => {
   const response = await fetch(userServiceUrl + "/login", {
     method: "post",
@@ -10,8 +11,6 @@ export const login = async (email, password) => {
     (response) => {
       if (response.status === 200) {
         return response.json();
-      } else {
-        console.log(`The response status : ${response.status}`);
       }
     },
     (response) => {
@@ -31,8 +30,6 @@ export const signup = async (email, password) => {
     (response) => {
       if (response.status === 200) {
         return response.json();
-      } else {
-        console.log(`The response status : ${response.status}`);
       }
     },
     (response) => {

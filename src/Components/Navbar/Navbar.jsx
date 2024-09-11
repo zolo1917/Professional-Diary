@@ -45,13 +45,17 @@ function Navbar({ onCallBack, handleLoginCookie, userDetails, handleLogout }) {
   return (
     <AppBar position="static" sx={{ backgroundColor: "primary" }}>
       <Toolbar>
-        <Box sx={{ display: { xs: "block", sm: "none" } }}>
+        <Box
+          sx={{ display: { xs: "block", sm: "block", md: "none", lg: "none" } }}
+        >
           <IconButton
             color="inherit"
             size="large"
             aria-label="menu"
             onClick={onCallBack}
-            sx={{ display: { xs: "true", sm: "none" } }}
+            sx={{
+              display: { xs: "true", sm: "block", md: "none", lg: "none" },
+            }}
           >
             <MenuIcon />
           </IconButton>

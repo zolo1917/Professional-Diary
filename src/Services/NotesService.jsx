@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
-const noteUrl = "https://noteserver.lazycoder.xyz/notes";
+// const noteUrl = "https://noteserver.lazycoder.xyz/notes";
+const noteUrl = "http://localhost:4301/notes";
 export async function getNotes() {
   let userDetails = JSON.parse(Cookies.get("userDetails"));
   return fetch(noteUrl, {
@@ -8,11 +9,44 @@ export async function getNotes() {
       "Content-type": "application/json",
       Authorization: `Bearer ${userDetails?.accessToken}`,
     },
-  }).then((response) => {
-    if (response.status === 200 || response.status === 304) {
-      return response.json();
+  }).then(
+    (response) => {
+      if (response.status === 200 || response.status === 304) {
+        return response.json();
+      }
+    },
+    (response) => {
+      if (response.status === 401) {
+        throw new Error("Unauthorized");
+      } else {
+        throw new Error("Error in call");
+      }
     }
-  });
+  );
+}
+
+export function getNoteById(noteId) {
+  let userDetails = JSON.parse(Cookies.get("userDetails"));
+  return fetch(noteUrl + `/${noteId}`, {
+    method: "get",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${userDetails?.accessToken}`,
+    },
+  }).then(
+    (response) => {
+      if (response.status === 200 || response.status === 304) {
+        return response.json();
+      }
+    },
+    (response) => {
+      if (response.status === 401) {
+        throw new Error("Unauthorized");
+      } else {
+        throw new Error("Error in call");
+      }
+    }
+  );
 }
 
 export const createNote = async (noteObject) => {
@@ -24,7 +58,20 @@ export const createNote = async (noteObject) => {
       Authorization: `Bearer ${userDetails?.accessToken}`,
     },
     body: JSON.stringify(noteObject),
-  });
+  }).then(
+    (response) => {
+      if (response.status === 200 || response.status === 304) {
+        return response.json();
+      }
+    },
+    (response) => {
+      if (response.status === 401) {
+        throw new Error("Unauthorized");
+      } else {
+        throw new Error("Error in call");
+      }
+    }
+  );
 };
 
 export const updateNote = async (noteId, noteObject) => {
@@ -36,6 +83,14 @@ export const updateNote = async (noteId, noteObject) => {
       Authorization: `Bearer ${userDetails?.accessToken}`,
     },
     body: JSON.stringify(noteObject),
+  }).then((response) => {
+    if (response.status === 200 || response.status === 304) {
+      return response.json();
+    } else if (response.status === 401) {
+      throw new Error("Unauthorized");
+    } else {
+      throw new Error("Error in call");
+    }
   });
 };
 
@@ -47,5 +102,18 @@ export const deleteNote = async (noteId) => {
       "Content-type": "application/json",
       Authorization: `Bearer ${userDetails?.accessToken}`,
     },
-  });
+  }).then(
+    (response) => {
+      if (response.status === 200 || response.status === 304) {
+        return response.json();
+      }
+    },
+    (response) => {
+      if (response.status === 401) {
+        throw new Error("Unauthorized");
+      } else {
+        throw new Error("Error in call");
+      }
+    }
+  );
 };

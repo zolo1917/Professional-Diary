@@ -1,31 +1,49 @@
-import { Divider, Stack } from "@mui/material";
-import CreateEditNote from "./CreateEditNote";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Dialog,
+  DialogContent,
+  Divider,
+  Stack,
+} from "@mui/material";
 import NotesList from "./NotesList";
 import { useCallback, useEffect, useState } from "react";
-import NoNoteSelected from "./NoNoteSelected";
 import { getNotes } from "../../Services/NotesService";
+import CreateEditNote from "./CreateEditNote";
+import { useNavigate } from "react-router";
 
-function Notes() {
+function Notes(handleLogout) {
   const [selectedNote, setSelectedNote] = useState({
     id: "",
     title: "",
     text: "",
   });
   const [notes, setNotes] = useState([]);
-  const [isNoteSelected, setIsNoteSelected] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
   const [triggerUpdateList, setTriggerUpdateList] = useState(false);
   const handleNoteSelection = (obj) => {
-    setIsNoteSelected(true);
     setSelectedNote(obj);
+    setOpenDialog(true);
   };
   const getDataFromBackend = useCallback(() => {
-    getNotes().then((data) => {
-      if (data) {
-        setNotes(data);
-      } else {
-        setNotes([]);
+    getNotes().then(
+      (data) => {
+        if (data) {
+          setNotes(data);
+        } else {
+          setNotes([]);
+        }
+      },
+      (response) => {
+        handleLogout();
       }
-    });
+    );
   }, []);
   useEffect(() => {
     setTimeout(async () => {
@@ -34,14 +52,19 @@ function Notes() {
   }, [triggerUpdateList, getDataFromBackend]);
 
   const updateList = () => {
-    setSelectedNote({
-      title: "",
-      text: "",
-    });
-    setIsNoteSelected(false);
     toggleTriggerUpdateList();
+    setOpenDialog(false);
   };
 
+  const createNote = () => {
+    toggleTriggerUpdateList();
+    handleExpansion();
+  };
+
+  const handleExpansion = () => {
+    setSelectedNote({ id: "", title: "", text: "" });
+    setExpanded((prevExpanded) => !prevExpanded);
+  };
   const toggleTriggerUpdateList = () => {
     setTriggerUpdateList((previousState) => {
       return !previousState;
@@ -50,32 +73,40 @@ function Notes() {
 
   const deleteNote = () => {
     toggleTriggerUpdateList();
-    setIsNoteSelected(false);
   };
 
-  let selectedPage = <NoNoteSelected></NoNoteSelected>;
-  if (isNoteSelected) {
-    selectedPage = (
-      <CreateEditNote note={selectedNote} onSubmitHandler={updateList} />
-    );
-  } else {
-    selectedPage = <NoNoteSelected></NoNoteSelected>;
-  }
-
   return (
-    <Stack
-      direction="row"
-      divider={<Divider orientation="vertical" flexItem />}
-      spacing={2}
-      sx={{ height: "100vh" }}
-    >
-      <NotesList
-        notes={notes}
-        handleNoteSelection={handleNoteSelection}
-        onDelete={deleteNote}
-      />
-      {selectedPage}
-    </Stack>
+    <>
+      <Box sx={{ marginLeft: "0.5rem" }}>
+        <Accordion expanded={expanded} onChange={handleExpansion}>
+          <AccordionSummary aria-controls="panel3-content" id="panel3-header">
+            New Note
+          </AccordionSummary>
+          <AccordionDetails>
+            <CreateEditNote note={selectedNote} onSubmitHandler={createNote} />
+          </AccordionDetails>
+        </Accordion>
+      </Box>
+      <Stack
+        direction="row"
+        divider={<Divider orientation="vertical" flexItem />}
+        spacing={2}
+        sx={{ height: "100vh" }}
+      >
+        <NotesList
+          notes={notes}
+          handleUpdateList={toggleTriggerUpdateList}
+          handleNoteSelection={handleNoteSelection}
+          handleLogout={handleLogout}
+          onDelete={deleteNote}
+        />
+        <Dialog color="primary" open={openDialog} onClose={handleClose}>
+          <DialogContent sx={{ width: "37rem", height: "24rem" }}>
+            <CreateEditNote note={selectedNote} onSubmitHandler={updateList} />
+          </DialogContent>
+        </Dialog>
+      </Stack>
+    </>
   );
 }
 
