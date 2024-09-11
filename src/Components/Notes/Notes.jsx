@@ -1,10 +1,8 @@
 import {
   Accordion,
-  AccordionActions,
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
   Dialog,
   DialogContent,
   Divider,
@@ -12,10 +10,11 @@ import {
 } from "@mui/material";
 import NotesList from "./NotesList";
 import { useCallback, useEffect, useState } from "react";
-import { getNoteById, getNotes } from "../../Services/NotesService";
+import { getNotes } from "../../Services/NotesService";
 import CreateEditNote from "./CreateEditNote";
+import { useNavigate } from "react-router";
 
-function Notes() {
+function Notes(handleLogout) {
   const [selectedNote, setSelectedNote] = useState({
     id: "",
     title: "",
@@ -33,13 +32,18 @@ function Notes() {
     setOpenDialog(true);
   };
   const getDataFromBackend = useCallback(() => {
-    getNotes().then((data) => {
-      if (data) {
-        setNotes(data);
-      } else {
-        setNotes([]);
+    getNotes().then(
+      (data) => {
+        if (data) {
+          setNotes(data);
+        } else {
+          setNotes([]);
+        }
+      },
+      (response) => {
+        handleLogout();
       }
-    });
+    );
   }, []);
   useEffect(() => {
     setTimeout(async () => {
@@ -58,6 +62,7 @@ function Notes() {
   };
 
   const handleExpansion = () => {
+    setSelectedNote({ id: "", title: "", text: "" });
     setExpanded((prevExpanded) => !prevExpanded);
   };
   const toggleTriggerUpdateList = () => {
@@ -92,6 +97,7 @@ function Notes() {
           notes={notes}
           handleUpdateList={toggleTriggerUpdateList}
           handleNoteSelection={handleNoteSelection}
+          handleLogout={handleLogout}
           onDelete={deleteNote}
         />
         <Dialog color="primary" open={openDialog} onClose={handleClose}>

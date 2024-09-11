@@ -1,9 +1,5 @@
-function Projects () {
-    return (
-        <div>
-            This is the projects Element
-        </div>
-    )
+function Projects(handleLogout) {
+  return <div>This is the projects Element</div>;
 }
 
-export default Projects
+export default Projects;

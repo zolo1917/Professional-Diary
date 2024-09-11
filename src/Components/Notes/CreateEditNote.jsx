@@ -4,10 +4,12 @@ import { useCallback, useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import { createNote, updateNote } from "../../Services/NotesService";
+import { Navigate, useNavigate } from "react-router";
 
 const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
   const [title, setTitle] = useState(note.title);
   const [editorState, setEditorState] = useState("");
+  const navigate = useNavigate();
   const clearFields = () => {
     onSubmitHandler();
   };
@@ -18,7 +20,6 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
   const handleSubmitClick = useCallback(
     (e) => {
       e.preventDefault();
-      console.log(editorState);
       if (note.id) {
         const obj = {
           title: title,
@@ -31,7 +32,9 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
           title: title,
           text: editorState,
         };
-        createNote(obj);
+        createNote(obj).catch((error) => {
+          navigate("/homepage");
+        });
       }
       onSubmitHandler();
     },
@@ -48,7 +51,6 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
             value={title}
             onChange={(e) => {
               setTitle(e.target.value);
-              console.log(title);
             }}
           ></Input>
         </FormControl>

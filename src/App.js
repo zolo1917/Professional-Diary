@@ -15,7 +15,6 @@ function App() {
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState(Cookies.get("userDetails"));
   const handleLoginCookie = (userDetails) => {
-    console.log("Settings cookie");
     Cookies.set("userDetails", JSON.stringify(userDetails));
   };
   const handleLogout = () => {
@@ -66,10 +65,22 @@ function App() {
               <Box sx={{ width: "86%", margin: "1%" }}>
                 <Routes>
                   <Route path="/homepage" element={<Homepage />}></Route>
-                  <Route path="/dashboard" element={<Dashboard />}></Route>
-                  <Route path="/projects" element={<Projects />}></Route>
-                  <Route path="/notes" element={<Notes />}></Route>
-                  <Route path="/tasks" element={<Tasks />}></Route>
+                  <Route
+                    path="/dashboard"
+                    element={<Dashboard handleLogout={handleLogout} />}
+                  ></Route>
+                  <Route
+                    path="/projects"
+                    element={<Projects handleLogout={handleLogout} />}
+                  ></Route>
+                  <Route
+                    path="/notes"
+                    element={<Notes handleLogout={handleLogout} />}
+                  ></Route>
+                  <Route
+                    path="/tasks"
+                    element={<Tasks handleLogout={handleLogout} />}
+                  ></Route>
                 </Routes>
                 <Outlet />
               </Box>
