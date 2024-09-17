@@ -57,7 +57,7 @@ export const createNote = async (noteObject) => {
       "Content-type": "application/json",
       Authorization: `Bearer ${userDetails?.accessToken}`,
     },
-    body: JSON.stringify(noteObject),
+    body: JSON.stringify({ ...noteObject, userId: userDetails?.userId }),
   }).then(
     (response) => {
       if (response.status === 200 || response.status === 304) {
@@ -82,7 +82,7 @@ export const updateNote = async (noteId, noteObject) => {
       "Content-type": "application/json",
       Authorization: `Bearer ${userDetails?.accessToken}`,
     },
-    body: JSON.stringify(noteObject),
+    body: JSON.stringify({ ...noteObject, userId: userDetails?.userId }),
   }).then((response) => {
     if (response.status === 200 || response.status === 304) {
       return response.json();

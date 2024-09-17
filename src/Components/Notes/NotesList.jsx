@@ -1,7 +1,6 @@
 import {
   Box,
   Card,
-  CardActionArea,
   CardActions,
   CardContent,
   CardHeader,
@@ -13,7 +12,7 @@ import {
   Tab,
   Tabs,
 } from "@mui/material";
-import { deleteNote } from "../../Services/NotesService";
+import { deleteNote, updateNote } from "../../Services/NotesService";
 import classes from "./NoteList.module.css";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useCallback, useEffect, useState } from "react";
@@ -71,6 +70,24 @@ const NotesList = ({
       setShow(true);
     }
   }, [notes]);
+
+  const handleFav = useCallback(
+    (obj) => {
+      obj.isFavourite = !obj.isFavourite;
+      updateNote(obj.id, obj);
+      onDelete();
+    },
+    [notes]
+  );
+
+  const handlePin = useCallback(
+    (obj) => {
+      obj.isPinned = !obj.isPinned;
+      updateNote(obj.id, obj);
+      onDelete();
+    },
+    [notes]
+  );
 
   return (
     <Box
@@ -152,7 +169,7 @@ const NotesList = ({
 
                     <Box>
                       <header className={classes.titleContainer}>
-                        <h2>{obj.title}</h2>
+                        <h2 className={classes.title}>{obj.title}</h2>
                       </header>
                       <CardContent
                         sx={{
@@ -165,13 +182,27 @@ const NotesList = ({
                       </CardContent>
                     </Box>
                     <CardActions sx={{ margin: "0.5rem" }}>
-                      <IconButton color="inherit" aria-label="add to favorites">
-                        {obj.isFav ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                      <IconButton
+                        color="inherit"
+                        aria-label="add to favorites"
+                        onClick={() => {
+                          handleFav(obj);
+                        }}
+                      >
+                        {obj.isFavourite ? (
+                          <FavoriteIcon />
+                        ) : (
+                          <FavoriteBorderIcon />
+                        )}
                       </IconButton>
                       <IconButton color="inherit" aria-label="share">
                         <ShareIcon />
                       </IconButton>
-                      <IconButton color="inherit" aria-label="pin">
+                      <IconButton
+                        color="inherit"
+                        aria-label="pin"
+                        onClick={() => handlePin(obj)}
+                      >
                         {obj.isPinned ? (
                           <PushPinIcon />
                         ) : (
