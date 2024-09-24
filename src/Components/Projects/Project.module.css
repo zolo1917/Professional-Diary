@@ -1,0 +1,41 @@
+.titleContainer {
+  width: 100%;
+  padding-left: 1rem;
+}
+
+.mainContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.projectSelector {
+  width: 12rem;
+}
+
+.dividerContainer {
+  margin: 1rem 0rem;
+}
+
+.contentBoxContainer {
+  height: 70%;
+}
+.widgetContainer1 {
+  width: 65%;
+}
+.widgetContainer2 {
+  width: 35%;
+}
+.recentProjectsBox {
+  width: 90%;
+  height: 18rem;
+  margin: 1rem;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px;
+  background-color: white;
+}
+.recentsHeader {
+  padding: 0.25rem 2rem;
+}
+.greybackgroundColor {
+  background-color: rgb(233, 233, 233);
+}
