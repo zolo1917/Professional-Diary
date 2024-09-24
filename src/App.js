@@ -62,7 +62,7 @@ function App() {
                   routeCallback={handleRoute}
                 ></ResponsiveDrawer>
               </Box>
-              <Box sx={{ width: "86%", margin: "1%" }}>
+              <Box sx={{ width: "86%", margin: "1%", height: "100%" }}>
                 <Routes>
                   <Route path="/homepage" element={<Homepage />}></Route>
                   <Route

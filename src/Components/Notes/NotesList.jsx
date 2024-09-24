@@ -166,7 +166,6 @@ const NotesList = ({
                         </IconButton>
                       }
                     ></CardHeader>
-
                     <Box>
                       <header className={classes.titleContainer}>
                         <h2 className={classes.title}>{obj.title}</h2>

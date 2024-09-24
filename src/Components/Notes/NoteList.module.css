@@ -44,12 +44,13 @@
 
 .titleContainer {
   margin: 5%;
-  max-height: 2.5rem;
+  max-height: 2rem;
+  height: 2rem;
 }
 
 .title {
   overflow: clip;
-  max-height: 1rem;
+  max-height: 2rem;
 }
 
 .spaceLeft {
