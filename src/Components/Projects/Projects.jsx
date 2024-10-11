@@ -15,6 +15,13 @@ import {
 } from "@mui/material";
 import classes from "./Project.module.css";
 import { useState } from "react";
+
+const projects = [
+  {
+    '': ''
+  }
+]
+
 function Projects(handleLogout) {
   const [projectList, setProjectList] = useState([
     "testProject1",

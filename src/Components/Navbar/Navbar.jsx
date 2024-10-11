@@ -43,7 +43,7 @@ function Navbar({ onCallBack, handleLoginCookie, userDetails, handleLogout }) {
     handleClose();
   };
   return (
-    <AppBar position="static" sx={{ backgroundColor: "primary" }}>
+    <AppBar position="fixed" sx={{ backgroundColor: "primary" }}>
       <Toolbar>
         <Box
           sx={{ display: { xs: "block", sm: "block", md: "none", lg: "none" } }}

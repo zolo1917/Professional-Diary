@@ -77,8 +77,10 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
       <Drawer
         container={document.getElementById("drawerContainer")}
         variant="permanent"
+        open="true"
         sx={{
           display: { xs: "none", sm: "none", md: "block", lg: "block" },
+          height: "100%",
           position: "static",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
