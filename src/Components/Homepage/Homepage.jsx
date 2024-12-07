@@ -1,5 +1,18 @@
+import { Box } from "@mui/material";
+
 function Homepage() {
-  return <div>this is the homepage</div>;
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "black",
+        color: "white",
+      }}
+    >
+      this is the homepage
+    </Box>
+  );
 }
 
 export default Homepage;
