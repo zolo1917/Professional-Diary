@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import { createNote, updateNote } from "../../Services/NotesService";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
   const [title, setTitle] = useState(note.title);

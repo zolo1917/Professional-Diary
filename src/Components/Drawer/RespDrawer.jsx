@@ -9,7 +9,6 @@ import {
   ListItemText,
 } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import ChecklistIcon from "@mui/icons-material/Checklist";

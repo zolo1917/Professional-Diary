@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Divider,
   FormControl,
   IconButton,
@@ -22,11 +21,6 @@ function Tasks(handlelogout) {
   const [projects, setProjects] = useState([]);
   const [statuses, setStatuses] = useState([]);
   const handleSearch = () => {
-    // onSearch({
-    //   searchTerm,
-    //   project: selectedProject,
-    //   status: selectedStatus,
-    // });
     console.log({
       searchTerm,
       project: selectedProject,

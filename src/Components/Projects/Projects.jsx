@@ -18,9 +18,9 @@ import { useState } from "react";
 
 const projects = [
   {
-    '': ''
-  }
-]
+    "": "",
+  },
+];
 
 function Projects(handleLogout) {
   const [projectList, setProjectList] = useState([

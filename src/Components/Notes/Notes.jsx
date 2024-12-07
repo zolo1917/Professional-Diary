@@ -12,7 +12,6 @@ import NotesList from "./NotesList";
 import { useCallback, useEffect, useState } from "react";
 import { getNotes } from "../../Services/NotesService";
 import CreateEditNote from "./CreateEditNote";
-import { useNavigate } from "react-router";
 
 function Notes({ handleLogout }) {
   const [selectedNote, setSelectedNote] = useState({

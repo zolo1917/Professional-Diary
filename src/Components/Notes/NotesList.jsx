@@ -29,7 +29,6 @@ import PushPinIcon from "@mui/icons-material/PushPin";
 const NotesList = ({
   notes,
   handleNoteSelection,
-  handleLogout,
   handleUpdateList,
   onDelete,
 }) => {
