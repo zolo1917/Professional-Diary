@@ -63,7 +63,7 @@ const NotesList = ({
     deleteNote(menuObj.id);
     handleMenuClose();
     onDelete();
-  }, [onDelete]);
+  }, [onDelete, menuObj.id]);
   useEffect(() => {
     if (notes.length > 0) {
       setShow(true);
@@ -76,7 +76,7 @@ const NotesList = ({
       updateNote(obj.id, obj);
       onDelete();
     },
-    [notes]
+    [onDelete]
   );
 
   const handlePin = useCallback(
@@ -85,7 +85,7 @@ const NotesList = ({
       updateNote(obj.id, obj);
       onDelete();
     },
-    [notes]
+    [onDelete]
   );
 
   return (

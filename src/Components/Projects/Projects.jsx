@@ -14,13 +14,7 @@ import {
   Stack,
 } from "@mui/material";
 import classes from "./Project.module.css";
-import { useState } from "react";
-
-const projects = [
-  {
-    "": "",
-  },
-];
+import { useEffect, useState } from "react";
 
 function Projects(handleLogout) {
   const [projectList, setProjectList] = useState([
@@ -28,6 +22,9 @@ function Projects(handleLogout) {
     "testProject2",
     "testProject3",
   ]);
+  useEffect(() => {
+    setProjectList(["testProject1", "testProject2", "testProject3"]);
+  }, []);
   const [project, setProject] = useState("");
   const handleProjectChange = (event) => {
     setProject(event.target.value);

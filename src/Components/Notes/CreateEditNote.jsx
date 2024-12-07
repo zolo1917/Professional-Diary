@@ -38,7 +38,7 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
       }
       onSubmitHandler();
     },
-    [title, editorState, onSubmitHandler, note.createdAt, note.id]
+    [title, editorState, onSubmitHandler, note.createdAt, note.id, navigate]
   );
   return (
     <Box flex={8} sx={{ height: "100%", width: "100%", padding: "2.5%" }}>

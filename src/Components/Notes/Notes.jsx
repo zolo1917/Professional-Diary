@@ -43,11 +43,11 @@ function Notes({ handleLogout }) {
         handleLogout();
       }
     );
-  }, []);
+  }, [handleLogout]);
   useEffect(() => {
     setTimeout(async () => {
       await getDataFromBackend();
-    }, 800);
+    }, 1000);
   }, [triggerUpdateList, getDataFromBackend]);
 
   const updateList = () => {

@@ -9,12 +9,12 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import TaskList from "./TaskList";
 import TaskDescription from "./TaskDescription";
-function Tasks(handlelogout) {
-  const [filter, setFilter] = useState({});
+function Tasks({ handlelogout }) {
+  // const [filter, setFilter] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProject, setSelectedProject] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
@@ -27,11 +27,13 @@ function Tasks(handlelogout) {
       status: selectedStatus,
     });
   };
+  useEffect(() => {
+    setProjects([]);
+    setStatuses([]);
+  }, []);
 
   const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      handleSearch();
-    }
+    handleSearch();
   };
   return (
     <Box sx={{ height: "90vh" }}>
@@ -48,7 +50,7 @@ function Tasks(handlelogout) {
                 <IconButton
                   variant="contained"
                   color="primary"
-                  onClick={handleSearch}
+                  onClick={handleKeyPress}
                 >
                   <SearchIcon color="action" />
                 </IconButton>
