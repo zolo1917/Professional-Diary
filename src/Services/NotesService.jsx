@@ -25,6 +25,30 @@ export async function getNotes() {
   );
 }
 
+export async function getNotesForCurrentUser() {
+  let userDetails = JSON.parse(Cookies.get("userDetails"));
+  return fetch(noteUrl + "/user/" + userDetails.id, {
+    method: "get",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${userDetails?.accessToken}`,
+    },
+  }).then(
+    (response) => {
+      if (response.status === 200 || response.status === 304) {
+        return response.json();
+      }
+    },
+    (response) => {
+      if (response.status === 401) {
+        throw new Error("Unauthorized");
+      } else {
+        throw new Error("Error in call");
+      }
+    }
+  );
+}
+
 export function getNoteById(noteId) {
   let userDetails = JSON.parse(Cookies.get("userDetails"));
   return fetch(noteUrl + `/${noteId}`, {
@@ -57,7 +81,7 @@ export const createNote = async (noteObject) => {
       "Content-type": "application/json",
       Authorization: `Bearer ${userDetails?.accessToken}`,
     },
-    body: JSON.stringify({ ...noteObject, userId: userDetails?.userId }),
+    body: JSON.stringify({ ...noteObject, userId: userDetails?.id }),
   }).then(
     (response) => {
       if (response.status === 200 || response.status === 304) {
@@ -82,7 +106,7 @@ export const updateNote = async (noteId, noteObject) => {
       "Content-type": "application/json",
       Authorization: `Bearer ${userDetails?.accessToken}`,
     },
-    body: JSON.stringify({ ...noteObject, userId: userDetails?.userId }),
+    body: JSON.stringify({ ...noteObject, userId: userDetails?.id }),
   }).then((response) => {
     if (response.status === 200 || response.status === 304) {
       return response.json();

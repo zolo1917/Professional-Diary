@@ -10,12 +10,14 @@ import Notes from "./Components/Notes/Notes";
 import { Box, Stack } from "@mui/material";
 import Cookies from "js-cookie";
 import Homepage from "./Components/Homepage/Homepage";
+import { userStore } from "./store";
 function App() {
   const [drawerState, setDrawerState] = useState(true);
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState(Cookies.get("userDetails"));
   const handleLoginCookie = (userDetails) => {
     Cookies.set("userDetails", JSON.stringify(userDetails));
+    setUserDetails(userDetails);
   };
   const handleLogout = () => {
     Cookies.remove("userDetails");
@@ -23,8 +25,10 @@ function App() {
   };
   useEffect(() => {
     if (userDetails) {
+      userStore.next({ userDetails });
       navigate("/app");
     } else {
+      userStore.next({});
       navigate("/homepage");
     }
     // eslint-disable-next-line

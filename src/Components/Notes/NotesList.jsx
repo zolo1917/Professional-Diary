@@ -39,7 +39,8 @@ const NotesList = ({
   const open = Boolean(openMenu);
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
-    handleUpdateList();
+    handleUpdateList(newValue);
+    // we can add the
     setShow(false);
   };
   const handleMenuOpen = (event, obj) => {
@@ -72,7 +73,7 @@ const NotesList = ({
 
   const handleFav = useCallback(
     (obj) => {
-      obj.isFavourite = !obj.isFavourite;
+      obj.isFavorite = !obj.isFavorite;
       updateNote(obj.id, obj);
       onDelete();
     },
@@ -187,7 +188,7 @@ const NotesList = ({
                           handleFav(obj);
                         }}
                       >
-                        {obj.isFavourite ? (
+                        {obj.isFavorite ? (
                           <FavoriteIcon />
                         ) : (
                           <FavoriteBorderIcon />

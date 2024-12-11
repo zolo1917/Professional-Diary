@@ -22,6 +22,9 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
       e.preventDefault();
       if (note.id) {
         const obj = {
+          isFavorite: false,
+          isPinned: false,
+          isShared: false,
           title: title,
           text: editorState,
           createdAt: note.createdAt,
@@ -29,6 +32,9 @@ const CreateEditNote = ({ onSubmitHandler, note, ...props }) => {
         updateNote(note.id, obj);
       } else {
         const obj = {
+          isFavorite: false,
+          isPinned: false,
+          isShared: false,
           title: title,
           text: editorState,
         };

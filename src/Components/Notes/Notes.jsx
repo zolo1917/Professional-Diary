@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import NotesList from "./NotesList";
 import { useCallback, useEffect, useState } from "react";
-import { getNotes } from "../../Services/NotesService";
+import { getNotesForCurrentUser } from "../../Services/NotesService";
 import CreateEditNote from "./CreateEditNote";
 
 function Notes({ handleLogout }) {
@@ -22,6 +22,9 @@ function Notes({ handleLogout }) {
   const [notes, setNotes] = useState([]);
   const [expanded, setExpanded] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+  const [filterPinned, setFilterPinned] = useState(false);
+  const [filterFavorite, setFilterFavorite] = useState(false);
+  const [filterShared, setFilterShared] = useState(false);
   const handleClose = () => {
     setOpenDialog(false);
   };
@@ -31,10 +34,25 @@ function Notes({ handleLogout }) {
     setOpenDialog(true);
   };
   const getDataFromBackend = useCallback(() => {
-    getNotes().then(
+    getNotesForCurrentUser().then(
       (data) => {
         if (data) {
-          setNotes(data);
+          let updatedData = data;
+          if (data)
+            if (filterPinned) {
+              updatedData = data.filter((obj) => {
+                return obj.isPinned;
+              });
+            } else if (filterFavorite) {
+              updatedData = data.filter((obj) => {
+                return obj.isFavorite;
+              });
+            } else if (filterShared) {
+              updatedData = data.filter((obj) => {
+                return obj.isShared;
+              });
+            }
+          setNotes(updatedData);
         } else {
           setNotes([]);
         }
@@ -43,7 +61,7 @@ function Notes({ handleLogout }) {
         handleLogout();
       }
     );
-  }, [handleLogout]);
+  }, [handleLogout, filterPinned, filterFavorite, filterShared]);
   useEffect(() => {
     setTimeout(async () => {
       await getDataFromBackend();
@@ -63,6 +81,31 @@ function Notes({ handleLogout }) {
   const handleExpansion = () => {
     setSelectedNote({ id: "", title: "", text: "" });
     setExpanded((prevExpanded) => !prevExpanded);
+  };
+
+  const toggleTabChange = (value) => {
+    switch (value) {
+      case "1":
+        setFilterShared(true);
+        setFilterFavorite(false);
+        setFilterPinned(false);
+        break;
+      case "2":
+        setFilterPinned(true);
+        setFilterFavorite(false);
+        setFilterShared(false);
+        break;
+      case "3":
+        setFilterFavorite(true);
+        setFilterShared(false);
+        setFilterPinned(false);
+        break;
+      default:
+        setFilterFavorite(false);
+        setFilterShared(false);
+        setFilterPinned(false);
+        break;
+    }
   };
   const toggleTriggerUpdateList = () => {
     setTriggerUpdateList((previousState) => {
@@ -94,7 +137,7 @@ function Notes({ handleLogout }) {
       >
         <NotesList
           notes={notes}
-          handleUpdateList={toggleTriggerUpdateList}
+          handleUpdateList={toggleTabChange}
           handleNoteSelection={handleNoteSelection}
           handleLogout={handleLogout}
           onDelete={deleteNote}
