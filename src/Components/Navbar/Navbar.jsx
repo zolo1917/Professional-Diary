@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SignupLogin from "../Dialog/RegisterDialogue";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 function Navbar({ onCallBack, handleLoginCookie, userDetails, handleLogout }) {
   const [loginOpen, setLoginOpen] = useState(false);
@@ -22,6 +22,13 @@ function Navbar({ onCallBack, handleLoginCookie, userDetails, handleLogout }) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  useEffect(() => {
+    if (userDetails) {
+      setUserLoggedIn(true);
+    } else {
+      setUserLoggedIn(false);
+    }
+  }, [userDetails]);
   const handleClose = () => {
     setAnchorEl(null);
   };

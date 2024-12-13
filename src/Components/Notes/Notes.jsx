@@ -118,7 +118,7 @@ function Notes({ handleLogout }) {
   };
 
   return (
-    <>
+    <Box sx={{ height: "89vh", overflowY: "auto" }}>
       <Box sx={{ marginLeft: "0.5rem" }}>
         <Accordion expanded={expanded} onChange={handleExpansion}>
           <AccordionSummary aria-controls="panel3-content" id="panel3-header">
@@ -131,9 +131,9 @@ function Notes({ handleLogout }) {
       </Box>
       <Stack
         direction="row"
+        sx={{ height: "93%" }}
         divider={<Divider orientation="vertical" flexItem />}
         spacing={2}
-        sx={{ height: "100vh" }}
       >
         <NotesList
           notes={notes}
@@ -148,7 +148,7 @@ function Notes({ handleLogout }) {
           </DialogContent>
         </Dialog>
       </Stack>
-    </>
+    </Box>
   );
 }
 
