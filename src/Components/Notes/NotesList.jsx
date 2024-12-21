@@ -89,7 +89,7 @@ const NotesList = ({
       sx={{
         width: "100%",
         display: "flex",
-        height: "80%",
+        height: "100%",
         justifyContent: "start",
         alignContent: "center",
         padding: "2vh 1vh",
