@@ -82,10 +82,6 @@ function App() {
                     element={<Dashboard handleLogout={handleLogout} />}
                   ></Route>
                   <Route
-                    path="/projects"
-                    element={<Projects handleLogout={handleLogout} />}
-                  ></Route>
-                  <Route
                     path="/notes"
                     element={<Notes handleLogout={handleLogout} />}
                   ></Route>

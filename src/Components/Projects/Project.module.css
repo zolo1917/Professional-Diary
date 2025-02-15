@@ -39,3 +39,42 @@
 .greybackgroundColor {
   background-color: rgb(233, 233, 233);
 }
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 2rem;
+  gap: 2rem;
+}
+
+.fullsize {
+  height: 100%;
+  width: 100%;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  flex-direction: row;
+}
+
+.accordionContainer {
+  width: 95%;
+  padding-left: 2rem;
+}
+
+.detailsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 1rem;
+  width: 100%;
+}
+
+.detailsSubSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+}

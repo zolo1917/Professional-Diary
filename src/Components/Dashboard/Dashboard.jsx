@@ -1,8 +1,11 @@
+import classes from "./Dashboard.module.css";
 function Dashboard(handleLogout) {
   return (
-    <>
-      <p> this is the Dashboard page</p>
-    </>
+    <div>
+      <div className={classes.titleContainer}>
+        <h2>Dashboard</h2>
+      </div>
+    </div>
   );
 }
 

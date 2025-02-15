@@ -115,7 +115,7 @@ const NotesList = ({
                 sx={{
                   margin: "1rem",
                   width: "100%",
-                  maxHeight: "30rem",
+                  maxHeight: "36rem",
                   overflowY: "auto",
                 }}
                 direction="row"

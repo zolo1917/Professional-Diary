@@ -18,9 +18,9 @@ import { useEffect, useState } from "react";
 
 function Projects(handleLogout) {
   const [projectList, setProjectList] = useState([
-    "testProject1",
-    "testProject2",
-    "testProject3",
+    { name: "testProject1", id: 1 },
+    { name: "testProject2", id: 2 },
+    { name: "testProject3", id: 3 },
   ]);
   useEffect(() => {
     setProjectList(["testProject1", "testProject2", "testProject3"]);
@@ -53,7 +53,11 @@ function Projects(handleLogout) {
               label="Project"
             >
               {projectList?.map((projectData) => {
-                return <MenuItem value={projectData}>{projectData}</MenuItem>;
+                return (
+                  <MenuItem key={projectData.id} value={projectData.name}>
+                    {projectData}
+                  </MenuItem>
+                );
               })}
             </Select>
           </FormControl>

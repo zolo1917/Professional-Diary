@@ -9,3 +9,7 @@ body {
 .leftMargin {
   margin-left: 16rem;
 }
+
+.ql-toolbar {
+  background-color: white;
+}

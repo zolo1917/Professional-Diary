@@ -1,4 +1,18 @@
 .drawerContainer {
-    margin-top: 4rem;
-    z-index: 1100;
+  margin-top: 4rem;
+  z-index: 1100;
+}
+.projectsContainer {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.projectListHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.addProjectButton {
+  width: 2rem;
+  height: 3rem;
+  border-radius: 50rem;
 }
