@@ -58,7 +58,7 @@ function App() {
             <Stack direction="row" justifyContent={"start"}>
               <Box
                 sx={{
-                  width: { xs: "0", sm: "0", md: "10.5rem", lg: "10.5rem" },
+                  width: { xs: "0", sm: "0", md: "18rem", lg: "18rem" },
                   height: "100%",
                 }}
               >
@@ -69,7 +69,13 @@ function App() {
               </Box>
               <Box
                 sx={{
-                  width: { xs: "100%", sm: "100%", md: "86%", lg: "86%" },
+                  width: { xs: "100%", sm: "100%", md: "83%", lg: "83%" },
+                  paddingLeft: {
+                    xs: "0rem",
+                    sm: "0rem",
+                    md: "1rem",
+                    lg: "1rem",
+                  },
                   margin: "1%",
                   marginTop: "5.25rem",
                   height: "100%",

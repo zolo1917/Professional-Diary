@@ -72,7 +72,7 @@ const NotesList = ({
       updateNote(obj.id, obj);
       onDelete();
     },
-    [onDelete]
+    [onDelete],
   );
 
   const handlePin = useCallback(
@@ -81,7 +81,7 @@ const NotesList = ({
       updateNote(obj.id, obj);
       onDelete();
     },
-    [onDelete]
+    [onDelete],
   );
 
   return (
@@ -92,7 +92,7 @@ const NotesList = ({
         height: "100%",
         justifyContent: "start",
         alignContent: "center",
-        padding: "2vh 1vh",
+        padding: "2vh 0vh 0vh 1vh",
       }}
     >
       <Card sx={{ width: "99%" }}>

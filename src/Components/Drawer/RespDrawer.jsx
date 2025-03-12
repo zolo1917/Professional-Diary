@@ -19,6 +19,7 @@ import Divider from "@mui/material/Divider";
 import classes from "./RespDrawer.module.css";
 import AddIcon from "@mui/icons-material/Add";
 import CreateProject from "../Projects/CreateProject";
+import EditIcon from "@mui/icons-material/Edit";
 
 const routesObject = [
   {
@@ -41,6 +42,7 @@ const routesObject = [
 function ResponsiveDrawer({ drawerState, routeCallback }) {
   const [projectList, setProjectList] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [projectObj, setProjectObj] = useState({});
   useEffect(() => {
     // fetch the project list
     (async () => {
@@ -58,6 +60,12 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
   const handleProjectNav = (projectId) => {
     console.log(`Navigating to project ${projectId}`);
   };
+  const editProject = (projectObject) => {
+    console.log(projectObject);
+    setIsDialogOpen(true);
+    setProjectObj(projectObject);
+  };
+
   const refreshProjects = () => {
     setIsDialogOpen(false);
     (async () => {
@@ -100,6 +108,13 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
                   {/* <ListItemIcon>{obj.icon}</ListItemIcon> */}
                   <ListItemText primary={obj.name} />
                 </ListItemButton>
+                <Button
+                  onClick={() => {
+                    editProject(obj);
+                  }}
+                >
+                  <EditIcon />
+                </Button>
               </ListItem>
             ))}
           </div>
@@ -151,7 +166,7 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
         open={isDialogOpen}
         onClose={refreshProjects}
       >
-        <CreateProject />
+        <CreateProject projectData={projectObj} />
       </Dialog>
     </Box>
   );
