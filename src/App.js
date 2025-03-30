@@ -4,8 +4,8 @@ import ResponsiveDrawer from "./Components/Drawer/RespDrawer";
 import { useEffect, useState } from "react";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import { Navigate, Outlet, Route, Routes, useNavigate } from "react-router-dom";
-import Projects from "./Components/Projects/Projects";
 import Tasks from "./Components/Tasks/Tasks";
+import Projects from "./Components/Projects/Projects";
 import Notes from "./Components/Notes/Notes";
 import { Box, Stack } from "@mui/material";
 import Cookies from "js-cookie";
@@ -94,6 +94,10 @@ function App() {
                   <Route
                     path="/tasks"
                     element={<Tasks handleLogout={handleLogout} />}
+                  ></Route>
+                  <Route
+                    path="/projects/:projectId"
+                    element={<Projects handleLogout={handleLogout} />}
                   ></Route>
                 </Routes>
                 <Outlet />

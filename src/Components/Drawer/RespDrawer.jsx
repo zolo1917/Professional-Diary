@@ -59,6 +59,7 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
   };
   const handleProjectNav = (projectId) => {
     console.log(`Navigating to project ${projectId}`);
+    routeCallback(`/app/projects/${projectId}`);
   };
   const editProject = (projectObject) => {
     console.log(projectObject);
@@ -101,11 +102,10 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
           </Button>
         </div>
         {projectList.length > 0 ? (
-          <div id="projectList">
+          <div className={classes.projectListContainer} id="projectList">
             {projectList.map((obj) => (
               <ListItem key={obj.id} disablePadding>
                 <ListItemButton onClick={() => handleProjectNav(obj.id)}>
-                  {/* <ListItemIcon>{obj.icon}</ListItemIcon> */}
                   <ListItemText primary={obj.name} />
                 </ListItemButton>
                 <Button
@@ -138,6 +138,7 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
             marginTop: "3.6em",
+            width: "15rem",
           },
         }}
       >
@@ -155,6 +156,7 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
             marginTop: "4em",
+            width: "15rem",
           },
         }}
       >

@@ -16,3 +16,7 @@
   height: 3rem;
   border-radius: 50rem;
 }
+.projectListContainer {
+  overflow-y: auto;
+  max-height: 64vh;
+}

@@ -19,7 +19,27 @@ export const getProjectsForUser = async () => {
     },
     (error) => {
       console.log(`Error during backend response : ${error}`);
+    }
+  );
+};
+
+export const getProjectById = (projectId) => {
+  let userDetails = JSON.parse(Cookies.get("userDetails"));
+  return fetch(projectUrl + `/${projectId}`, {
+    method: "get",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${userDetails?.accessToken}`,
     },
+  }).then(
+    (response) => {
+      if (response.ok) {
+        return response.json();
+      }
+    },
+    (error) => {
+      console.log(`Error during backend response : ${error}`);
+    }
   );
 };
 
@@ -37,12 +57,13 @@ export const createProject = (projectDetails) => {
   }).then(
     (response) => {
       if (response.ok) {
+        console.log(response);
         return response.body;
       }
     },
     (error) => {
       console.log(`Error during backend response: ${error}`);
-    },
+    }
   );
 };
 
@@ -51,11 +72,11 @@ export const updateProject = (projectId, projectDetails) => {
   console.log(Cookies.get("userDetails").toString());
   let userDetails = JSON.parse(Cookies.get("userDetails").toString());
   projectDetails.userId = userDetails.id;
-  return fetch(projectUrl + `?id=${projectId}`, {
+  return fetch(projectUrl + `/${projectId}`, {
     method: "put",
     headers: {
       "Content-type": "application/json",
-      Authorization: `Bearer ${userDetails.accessToken}`,
+      Authorization: `Bearer ${userDetails?.accessToken}`,
     },
     body: JSON.stringify({ ...projectDetails, userId: userDetails?.id }),
   }).then(
@@ -66,6 +87,6 @@ export const updateProject = (projectId, projectDetails) => {
     },
     (error) => {
       console.log(`Error during backend Response : ${error}`);
-    },
+    }
   );
 };

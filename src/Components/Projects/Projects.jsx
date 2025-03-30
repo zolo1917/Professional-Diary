@@ -4,30 +4,30 @@
  * we will be working on the page layout and outlook
  */
 
-import {
-  Box,
-  Divider,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-} from "@mui/material";
+import { Box, Divider, Stack } from "@mui/material";
 import classes from "./Project.module.css";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { getProjectById } from "../../Services/ProjectService";
 
-function Projects(handleLogout) {
-  const [projectList, setProjectList] = useState([
-    { name: "testProject1", id: 1 },
-    { name: "testProject2", id: 2 },
-    { name: "testProject3", id: 3 },
-  ]);
+function Projects({ handleLogout }) {
+  const { projectId } = useParams();
+  const [projectDetails, setProjectDetails] = useState({});
+  const fetchProject = async () => {
+    await getProjectById(projectId)
+      .then((resp) => {
+        setProjectDetails(resp);
+      })
+      .catch((error) => {
+        console.log(error);
+        setProjectDetails({});
+      });
+  };
   useEffect(() => {
-    setProjectList(["testProject1", "testProject2", "testProject3"]);
-  }, []);
-  const [project, setProject] = useState("");
+    fetchProject();
+  }, [projectId]);
   const handleProjectChange = (event) => {
-    setProject(event.target.value);
+    console.log(event.target.value);
   };
   return (
     <Box sx={{ width: "100%", height: "100%" }}>
@@ -40,55 +40,11 @@ function Projects(handleLogout) {
             alignItems: "center",
             paddingTop: "0.5rem",
           }}
-        >
-          <h1> Project Dashboard </h1>
-          <FormControl className={classes.projectSelector}>
-            <InputLabel id="projectSelectorLabel"> Project</InputLabel>
-            <Select
-              value={project}
-              labelId="projectSelectorLabel"
-              id="projectSelector"
-              onChange={handleProjectChange}
-              autowidth
-              label="Project"
-            >
-              {projectList?.map((projectData) => {
-                return (
-                  <MenuItem key={projectData.id} value={projectData.name}>
-                    {projectData}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        </Stack>
+        ></Stack>
       </div>
+      <h1>{projectDetails.name}</h1>
       <div className={classes.dividerContainer}>
         <Divider />
-      </div>
-      <div
-        className={`${classes.contentBoxContainer} ${classes.greybackgroundColor}`}
-      >
-        <Stack
-          direction="row"
-          sx={{
-            alignItems: "center",
-            justifyContent: "space-evenly",
-            width: "100%",
-          }}
-        >
-          <div className={classes.widgetContainer1}>
-            <Box className={classes.recentProjectsBox}>
-              <header className={classes.recentsHeader}>
-                <h4>Recents</h4>
-              </header>
-              <Divider />
-            </Box>
-          </div>
-          <div className={classes.widgetContainer2}>
-            <h2>This is the second content</h2>
-          </div>
-        </Stack>
       </div>
     </Box>
   );
