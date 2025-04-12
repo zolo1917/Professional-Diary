@@ -1,6 +1,10 @@
 import Cookies from "js-cookie";
+import { BehaviorSubject } from "rxjs";
 
 const projectUrl = "http://localhost:8080/project";
+
+export const projectList$ = new BehaviorSubject([]);
+
 export const getProjectsForUser = async () => {
   let userDetails = JSON.parse(Cookies.get("userDetails"));
   // Fetch all the projects for a given user and set the list of projects available.
@@ -19,7 +23,7 @@ export const getProjectsForUser = async () => {
     },
     (error) => {
       console.log(`Error during backend response : ${error}`);
-    }
+    },
   );
 };
 
@@ -39,7 +43,7 @@ export const getProjectById = (projectId) => {
     },
     (error) => {
       console.log(`Error during backend response : ${error}`);
-    }
+    },
   );
 };
 
@@ -63,7 +67,7 @@ export const createProject = (projectDetails) => {
     },
     (error) => {
       console.log(`Error during backend response: ${error}`);
-    }
+    },
   );
 };
 
@@ -87,6 +91,6 @@ export const updateProject = (projectId, projectDetails) => {
     },
     (error) => {
       console.log(`Error during backend Response : ${error}`);
-    }
+    },
   );
 };

@@ -31,18 +31,7 @@ function Projects({ handleLogout }) {
   };
   return (
     <Box sx={{ width: "100%", height: "100%" }}>
-      <div className={classes.titleContainer}>
-        <Stack
-          direction="row"
-          spacing={2}
-          sx={{
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingTop: "0.5rem",
-          }}
-        ></Stack>
-      </div>
-      <h1>{projectDetails.name}</h1>
+      <h3 className={classes.titleContainer}>{projectDetails.name}</h3>
       <div className={classes.dividerContainer}>
         <Divider />
       </div>

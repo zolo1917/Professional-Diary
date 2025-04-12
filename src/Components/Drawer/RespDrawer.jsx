@@ -14,7 +14,10 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import { useEffect, useState } from "react";
-import { getProjectsForUser } from "../../Services/ProjectService";
+import {
+  getProjectsForUser,
+  projectList$,
+} from "../../Services/ProjectService";
 import Divider from "@mui/material/Divider";
 import classes from "./RespDrawer.module.css";
 import AddIcon from "@mui/icons-material/Add";
@@ -49,6 +52,7 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
       const resp = await getProjectsForUser();
       if (resp) {
         console.log(resp);
+        projectList$.next(resp);
         setProjectList(resp);
       }
     })();
@@ -67,12 +71,18 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
     setProjectObj(projectObject);
   };
 
+  const handleCreateNewProject = () => {
+    setProjectObj({});
+    setIsDialogOpen(true);
+  };
+
   const refreshProjects = () => {
     setIsDialogOpen(false);
     (async () => {
       const resp = await getProjectsForUser();
       if (resp) {
         console.log(resp);
+        projectList$.next(resp);
         setProjectList(resp);
       }
     })();
@@ -96,7 +106,7 @@ function ResponsiveDrawer({ drawerState, routeCallback }) {
           <Button
             className={classes.addProjectButton}
             variant="text"
-            onClick={() => setIsDialogOpen(true)}
+            onClick={handleCreateNewProject}
           >
             <AddIcon />
           </Button>

@@ -1,5 +1,6 @@
 import {
   Box,
+  Chip,
   Divider,
   FormControl,
   IconButton,
@@ -13,10 +14,11 @@ import { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import TaskList from "./TaskList";
 import TaskDescription from "./TaskDescription";
+import { projectList$ } from "../../Services/ProjectService";
 function Tasks({ handlelogout }) {
   // const [filter, setFilter] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedProject, setSelectedProject] = useState("");
+  const [selectedProject, setSelectedProject] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState("");
   const [projects, setProjects] = useState([]);
   const [statuses, setStatuses] = useState([]);
@@ -27,8 +29,14 @@ function Tasks({ handlelogout }) {
       status: selectedStatus,
     });
   };
+  const handleProjectChange = (event) => {
+    setSelectedProject(event.target.value);
+  };
   useEffect(() => {
-    setProjects([]);
+    const subs = projectList$.subscribe((data) => {
+      setProjects(data);
+    });
+    subs.unsubscribe();
     setStatuses([]);
   }, []);
 
@@ -63,12 +71,21 @@ function Tasks({ handlelogout }) {
             <InputLabel>Project</InputLabel>
             <Select
               value={selectedProject}
+              multiple
               label="Project"
-              onChange={(e) => setSelectedProject(e.target.value)}
+              onChange={handleProjectChange}
+              renderValue={(selectedProject) => {
+                return (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selectedProject.map((value) => {
+                      return <Chip key={value.id} label={value.name}></Chip>;
+                    })}
+                  </Box>
+                );
+              }}
             >
-              <MenuItem value="">All Projects</MenuItem>
               {projects.map((project) => (
-                <MenuItem key={project.id} value={project.id}>
+                <MenuItem key={project.id} value={project}>
                   {project.name}
                 </MenuItem>
               ))}
@@ -94,7 +111,7 @@ function Tasks({ handlelogout }) {
       <Divider sx={{ margin: "1rem 0rem" }} />
       <Stack direction={"row"} sx={{ width: "100%" }}>
         <Box id="issueListContainer" sx={{ width: "30%" }}>
-          <TaskList />
+          <TaskList projectIds={selectedProject} statuses={selectedStatus} />
         </Box>
         <Divider orientation="vertical" />
         <Box id="descriptionContainer" sx={{ width: "68%" }}>

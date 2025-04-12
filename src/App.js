@@ -58,7 +58,7 @@ function App() {
             <Stack direction="row" justifyContent={"start"}>
               <Box
                 sx={{
-                  width: { xs: "0", sm: "0", md: "18rem", lg: "18rem" },
+                  width: { xs: "0", sm: "0", md: "16rem", lg: "16rem" },
                   height: "100%",
                 }}
               >

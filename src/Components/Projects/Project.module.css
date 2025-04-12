@@ -1,6 +1,7 @@
 .titleContainer {
   width: 100%;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
+  margin: 0rem;
 }
 
 .titleFormControl {
