@@ -1,11 +1,5 @@
-import {
-  Grid,
-  Typography,
-  Card,
-  CardContent,
-  CardActions,
-} from "@mui/material";
-
+import { Divider, Box, IconButton, Typography } from "@mui/material";
+import classes from "./TaskStyle.module.css";
 function TaskDescription() {
   const task = [
     {
@@ -20,44 +14,20 @@ function TaskDescription() {
   ];
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Card>
-          <CardContent>
-            <Typography variant="h5" component="h2">
-              {task.title}
-            </Typography>
-            <Typography variant="body2" color="textSecondary">
-              {task.description}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Grid container spacing={1}>
-              <Grid item xs={4}>
-                <Typography variant="body2" color="textSecondary">
-                  Status: {task.status}
-                </Typography>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography variant="body2" color="textSecondary">
-                  Priority: {task.priority}
-                </Typography>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography variant="body2" color="textSecondary">
-                  Assignee: {task.assignee}
-                </Typography>
-              </Grid>
-            </Grid>
-          </CardActions>
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography variant="h6" component="h2">
-          Due Date: {task.dueDate}
-        </Typography>
-      </Grid>
-    </Grid>
+    <Box className={classes.fullsize}>
+      <header className={classes.headerContainer}>
+        <h4>Project Title</h4>
+        <IconButton>Edit</IconButton>
+      </header>
+      <Divider></Divider>
+      <Box id="taskDetailsBody">
+        <Box id="description_container">
+          <Typography> Description :</Typography>
+        </Box>
+        <Box id="details_container"></Box>
+        <Box id="work_log_container"></Box>
+      </Box>
+    </Box>
   );
 }
 

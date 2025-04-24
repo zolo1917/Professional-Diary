@@ -1,0 +1,15 @@
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.update-css {
+}
+.fullsize {
+  width: 100%;
+  height: 100%;
+}
+
+.description {
+  margin: 0rem 1rem;
+}
